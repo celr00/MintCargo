@@ -1,5 +1,43 @@
+.no-webp .start {
+    background-image: url(../img/paginaWeb1.png);
+}
+
+.webp .start {
+    background-image: url(../img/paginaWeb1.webp);
+}
+
 .header {
+
+    &.start {
+        background-position: center center;
+        background-size: cover;
+
+        @include tablet {
+            min-height: 70rem;
+        }
+    }
+
+    .header-content {
+        @include tablet {
+            min-height: 70rem;
+        }
+    }
+}
+
+.header-content {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    img {
+        width: 15%;
+    }
+
+    @include tablet {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding-top: 2rem;
+    }
 }
