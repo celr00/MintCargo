@@ -1,0 +1,33 @@
+.footer {
+    background-color: #231f20;
+    text-align: center;
+    padding-top: 10px;
+
+    p {
+        color: white;
+        font-size: smaller;
+        margin-bottom: 5px;
+    }
+
+    // Media icons
+    img {
+        padding: 5px;
+        border: 1px solid white;
+        border-radius: 100%;
+        width: 28px;
+        height: 28px;
+        margin-bottom: 5px;
+    }
+}
+
+.socials {
+    width: 30%;
+    margin: auto;
+    text-align: center;
+    @include flex(row, center, center, 5px);
+}
+
+.copyright {
+    color: #5f5c5e;
+    font-size: small;
+}
