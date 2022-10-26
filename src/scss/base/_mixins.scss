@@ -39,3 +39,11 @@
         cursor: pointer;
     }
 }
+
+@mixin flex($direction, $justification, $alignment, $space) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justification;
+    align-items: $alignment;
+    gap: $space;
+}
