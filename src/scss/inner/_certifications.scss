@@ -1,3 +1,11 @@
+.images {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+}
 .certifications {
-    display: flex;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
 }
