@@ -1,0 +1,41 @@
+.about-us {
+    display: inline-block;
+    // background-image: url(../img/paginaWeb2.jpeg);
+    background-color: black;
+    margin: 0 2rem 2rem 2rem;
+    padding: 40px;
+    
+    .d-flex {
+        @include flex(row, space-between, center, 0px);
+    }
+
+    p, span, h2 {
+        color: white;
+    }
+
+    hr {
+        background-color: white;
+        width: 1px;
+        height: 30em;
+    }
+}
+
+#about-header {
+    font-size: 5em;
+    color: white;
+    margin-right: 1em;
+}
+
+#story {
+    width: 50em;
+    margin-right: 1em
+}
+
+#values {
+    @include flex(column, end, end, 0);
+    text-align: end;
+    
+    p {
+        margin: 0 0 0 1em;
+    }
+}
