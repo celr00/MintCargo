@@ -47,7 +47,6 @@
           <p>Excellent customer service</p>
         </div>
       </div>
-
     </section>
 
     <div id="footer"></div>
@@ -57,7 +56,7 @@
       $('#header').load('base/header.html');
       $('#footer').load('base/footer.html');
       $(window).on('load', function() {
-        document.getElementById('page-title').innerHTML = 'About Us';
+        $('#page-title').text('About Us');
       });
     </script>
     <script src="build/js/bundle.min.js"></script>
