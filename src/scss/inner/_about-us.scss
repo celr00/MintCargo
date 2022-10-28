@@ -1,6 +1,5 @@
 .about-us {
     display: inline-block;
-    // background-image: url(../img/paginaWeb2.jpeg);
     background-color: black;
     margin: 0 2rem 2rem 2rem;
     padding: 40px;
@@ -27,12 +26,10 @@
 }
 
 #story {
-    width: 50em;
     margin-right: 1em
 }
 
 #values {
-    @include flex(column, end, end, 0);
     text-align: end;
     
     p {
