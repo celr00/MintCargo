@@ -1,6 +1,8 @@
 .about-us {
     display: inline-block;
-    background-color: black;
+    background: 
+        linear-gradient(0deg, rgba(8, 131, 145, 0.5), rgba(8, 131, 145, 0.5)),
+        url(../img/paginaWeb2.jpeg) no-repeat;
     margin: 0 2rem 2rem 2rem;
     padding: 40px;
     
@@ -21,18 +23,27 @@
 
 #about-header {
     font-size: 5em;
-    color: white;
     margin-right: 1em;
 }
 
 #story {
-    margin-right: 1em
+    margin-right: 1em;
+    width: 40em;
 }
 
 #values {
+    @include flex(column, end, end, 0px);
     text-align: end;
-    
+
+    span {
+        font-size: 2em;
+    }
+
     p {
         margin: 0 0 0 1em;
+    }
+
+    .value {
+        margin-bottom: 2em;
     }
 }
