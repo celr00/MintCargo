@@ -3,6 +3,11 @@
     text-align: center;
     padding-top: 10px;
 
+    // Mantenerlo hasta abajo
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+
     p {
         color: white;
         font-size: smaller;
@@ -17,6 +22,14 @@
         width: 28px;
         height: 28px;
         margin-bottom: 5px;
+    }
+
+    .white-spacer {
+        margin: auto;
+        color: white !important;
+        opacity: 1 !important;
+        background-color: white !important;
+        margin-bottom: 10px;
     }
 }
 
