@@ -1,0 +1,47 @@
+.contact {
+
+    background-color: #f8f9f9;
+    margin-bottom: 2rem;
+
+    .first-header {
+        color: #00aeef;
+        font-size: 4em;
+        text-align: center;
+    }
+
+    .second-header {
+        color: black;
+        font-size: 2em;
+        text-align: center;
+    }
+
+    .address {
+        color: #46c4f3;
+    }
+
+    .phone {
+        font-size: small;
+    }
+
+    hr {
+        color: #46c4f3;
+        background-color: #46c4f3;
+        width: 50%;
+        height: 1px;
+        opacity: 1;
+        margin: auto;
+    }
+
+    img {
+        border-radius: 100%;
+        border: 1px solid black;
+        width: 35px;
+        height: 35px;
+        padding: 8px;
+    }
+}
+
+#main-contact {
+    background-image: url(../img/world-gray.webp);
+    border-left: solid 3px #46c4f3;
+}
