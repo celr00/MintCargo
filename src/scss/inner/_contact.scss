@@ -10,6 +10,8 @@
     }
 
     .second-header {
+        margin-top: 1.5em;
+        margin-bottom: 1.5em;
         color: black;
         font-size: 2em;
         text-align: center;
@@ -42,6 +44,5 @@
 }
 
 #main-contact {
-    background-image: url(../img/world-gray.webp);
-    border-left: solid 3px #46c4f3;
+    border-left: solid 5px #46c4f3;
 }
