@@ -45,6 +45,9 @@
     <script>
       $('#header').load('base/header.html');
       $('#footer').load('base/footer.html');
+      $(window).on('load', function() {
+        $('#page-title').text('Home');
+      });
     </script>
     <script src="build/js/bundle.min.js"></script>
   </body>
