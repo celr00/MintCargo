@@ -1,11 +1,15 @@
-.images {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-    gap: 2rem;
-    justify-content: center;
-    align-items: center;
-}
 .certifications {
-    margin-top: 4rem;
-    margin-bottom: 4rem;
+
+    .col-12 {
+        margin-bottom: 20px;
+    }
+
+    .row {
+        img {
+            width: 30%;
+            margin: auto;
+            -webkit-filter: grayscale(100%) contrast(300%);
+            filter: grayscale(100%) contrast(300%);
+        }
+    }
 }
