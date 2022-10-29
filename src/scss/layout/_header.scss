@@ -1,9 +1,13 @@
 .no-webp .start {
-    background-image: url(../img/paginaWeb1.png);
+    background: 
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.25), rgba(255, 255, 255, 0.25)),
+        url(../img/paginaWeb1.png) no-repeat;
 }
 
 .webp .start {
-    background-image: url(../img/paginaWeb1.webp);
+    background: 
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.25), rgba(255, 255, 255, 0.25)),
+        url(../img/paginaWeb1.png) no-repeat;
 }
 
 .header {
@@ -26,19 +30,21 @@
 
 .barra {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
 
     img {
         width: 30%;
         padding: 2rem 0;
+        filter: drop-shadow(5px 0 0 white) 
+                drop-shadow(0 5px 0 white)
+                drop-shadow(-5px 0 0 white) 
+                drop-shadow(0 -5px 0 white);
     }
 
     @include tablet {
         flex-direction: row;
         justify-content: space-between;
-        align-items: flex-start;
+        align-items: center;
         padding-top: 2rem;
 
         img {
