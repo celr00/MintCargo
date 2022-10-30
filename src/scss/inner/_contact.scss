@@ -5,7 +5,7 @@
 
     .first-header {
         color: #00aeef;
-        font-size: 4em;
+        font-size: 3em;
         text-align: center;
     }
 
@@ -45,4 +45,26 @@
 
 #main-contact {
     border-left: solid 5px #46c4f3;
+}
+
+.partners {
+    
+    h2 {
+        font-weight: bold;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 20px;
+        width: 70%;
+        margin: auto;
+        margin-top: 2em;
+        margin-bottom: 2em;
+    }
+
+    input, textarea {
+        padding: 10px;
+    }
 }
