@@ -48,9 +48,22 @@
 }
 
 .partners {
+
+    margin-bottom: 2rem;
     
     h2 {
         font-weight: bold;
+    }
+
+    em {
+        color: #46c4f3;
+    }
+
+    img {
+        width: 80%;
+        margin: auto;
+        border-radius: 10%;
+        border-right: 5px solid #46c4f3;
     }
 
     form {
