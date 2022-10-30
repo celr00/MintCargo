@@ -77,7 +77,21 @@
         margin-bottom: 2em;
     }
 
+    
     input, textarea {
         padding: 10px;
+        
+    }
+
+    .btn {
+        font-size: 1em;
+    }
+}
+
+.hr-contact {
+    margin-bottom: 2rem;
+
+    h2 {
+        font-weight: bold;
     }
 }
