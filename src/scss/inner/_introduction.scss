@@ -1,0 +1,20 @@
+.programs {
+    @include tablet{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 2rem;
+    }
+}
+
+.program {
+    margin-bottom: 2rem;
+
+    h4 {
+        color: $mint;
+    }
+}
+
+.join {
+    @include button($mint, block);
+    margin-top: 0;
+}

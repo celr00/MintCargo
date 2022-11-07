@@ -17,25 +17,26 @@
     }
 }
 
-@mixin grid($columnas, $espaciado ) {
+@mixin grid($columns, $spacing ) {
     display: grid;
-    gap: $espaciado;
-    grid-template-columns: repeat($columnas, 1fr);
+    gap: $spacing;
+    grid-template-columns: repeat($columns, 1fr);
 }
 
-@mixin boton($bgColor, $display) {
+@mixin button($bgColor, $display) {
     background-color: $bgColor;
-    color: $blanco;
+    color: $white;
     font-weight: $bold;
     text-decoration: none;
     padding: 1rem 3rem;
     text-align: center;
-    margin-top: calc($separacion / 2);
+    margin-top: calc($spacing / 2);
     display: $display;
     border: none;
 
     &:hover {
         background-color: darken($bgColor, 5);
+        color: $white;
         cursor: pointer;
     }
 }
