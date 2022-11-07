@@ -27,7 +27,24 @@
 
   <body>
 
-    <div id="header"></div>
+    <header class="header start">
+      <div class="header-content container">
+        <div class="barra">
+          <a href="/"><img src="build/img/Logo_Mint_Transparente 534x206.png" alt="logo"></a>
+          <nav class="navigation">
+            <a href="index.html">HOME</a>
+            <a href="about-us.html">ABOUT</a>
+            <a href="service.html">SERVICE</a>
+            <a href="contact.html">CONTACT</a>
+          </nav>
+        </div>
+        <div>
+          <h1 id="page-title">Welcome</h1>
+          <h3>to Mint Cargo Boosting Logistics</h3>
+        </div>
+      </div>
+    </header>
+
     <section class="introduction container">
       <h2>Programs</h2>
       <div class="programs">
@@ -56,6 +73,7 @@
     </section>
 
     <section class="certifications container">
+      <h2>Certifications</h2>
       <div class="row">
         <div class="col-md-6 col-12 d-flex">
           <img src="build/img/certificaciones1.png" alt="Amacarga Logo">
@@ -73,11 +91,7 @@
 
     <!-- Base header & footer -->
     <script>
-      $('#header').load('base/header.html');
       $('#footer').load('base/footer.html');
-      $(window).on('load', function() {
-        $('#page-title').text('Home');
-      });
     </script>
     <script src="build/js/bundle.min.js"></script>
   </body>

@@ -60,10 +60,14 @@
 
     @include tablet {
         gap: 30rem;
-        h1 {
+        h1, h3 {
             text-align: left;
+        }
+        h1 {
             font-weight: bold;
-            font-size: 3.5em;
+        }
+        h3 {
+            color: $mint;
         }
     }
 }
