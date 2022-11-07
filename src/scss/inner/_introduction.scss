@@ -1,3 +1,6 @@
+.introduction{
+    margin-bottom: $spacing;
+}
 .programs {
     @include tablet{
         display: grid;
