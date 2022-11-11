@@ -15,59 +15,42 @@
     &.start {
         background-position: center center;
         background-size: cover;
-
-        @include tablet {
-            min-height: 70rem;
-        }
     }
 
-    .header-content {
-        @include tablet {
-            min-height: 70rem;
-        }
-    }
 }
 
 .barra {
     display: flex;
     align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 2rem;
 
+    // Logo
     img {
-        width: 30%;
-        padding: 2rem 0;
+        width: 20rem;
+        padding: 0;
         filter: drop-shadow(5px 0 0 white) 
                 drop-shadow(0 5px 0 white)
                 drop-shadow(-5px 0 0 white) 
                 drop-shadow(0 -5px 0 white);
     }
 
-    @include tablet {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        padding-top: 2rem;
-
-        img {
-            width: 20rem;
-            padding: 0;
-        }
-    }
 }
 
 .header-content {
     display: flex;
     flex-direction: column;
+    gap: 30rem;
 
-    @include tablet {
-        gap: 30rem;
-        h1, h3 {
-            text-align: left;
-        }
-        h1 {
-            font-weight: bold;
-        }
-        h3 {
-            color: $mint;
-        }
+    h1, h3 {
+        text-align: left;
+    }
+    h1 {
+        font-weight: bold;
+    }
+    h3 {
+        color: $mint;
     }
 }
