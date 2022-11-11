@@ -44,3 +44,13 @@
     color: #5f5c5e;
     font-size: small;
 }
+
+.navigation_footer {
+    a {
+        color: #5f5c5e;
+    }
+    a:hover {
+        color: $white;
+        text-decoration: underline;
+    }
+}
