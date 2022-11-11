@@ -11,21 +11,23 @@
 }
 
 .header {
-
     &.start {
         background-position: center center;
         background-size: cover;
     }
-
 }
 
 .barra {
     display: flex;
     align-items: center;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
     padding-top: 2rem;
+
+    @include tablet {
+        flex-direction: row;
+    }
 
     // Logo
     img {
