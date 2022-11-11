@@ -10,6 +10,7 @@
         url(../img/paginaWeb1.png) no-repeat;
 }
 
+
 .header {
 
     &.start {
@@ -17,13 +18,13 @@
         background-size: cover;
 
         @include tablet {
-            min-height: 70rem;
+            min-height: 60rem;
         }
     }
 
     .header-content {
         @include tablet {
-            min-height: 70rem;
+            min-height: 60rem;
         }
     }
 }
@@ -31,6 +32,14 @@
 .barra {
     display: flex;
     align-items: center;
+    flex-direction: column;
+
+    a {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
 
     img {
         width: 30%;
