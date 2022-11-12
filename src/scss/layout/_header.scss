@@ -12,17 +12,10 @@
 
 
 .header {
-
     &.start {
         background-position: center center;
         background-size: cover;
 
-        @include tablet {
-            min-height: 60rem;
-        }
-    }
-
-    .header-content {
         @include tablet {
             min-height: 60rem;
         }
@@ -33,12 +26,12 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 2rem;
 
-    a {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+    @include tablet {
+        flex-direction: row;
     }
 
     // Logo

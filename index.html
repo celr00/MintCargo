@@ -27,6 +27,23 @@
 
   <body>
 
+    <!-- Cookies Modal -->
+    <div class="modal" tabindex="-1" id="cookies">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Cookies</h5>
+          </div>
+          <div class="modal-body">
+            <p><b>For your information:</b> our website uses <i>cookies</i> to improve your experience.</p>
+          </div>
+          <div class="modal-footer">
+            <button onclick="acceptCookies()" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Accept</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div id="header"></div>
     <section class="introduction container">
       <h2 style="margin-top: 0;">Programs</h2>
@@ -73,12 +90,20 @@
 
     <!-- Base header & footer -->
     <script>
+      let cookies = localStorage.getItem("cookies");
       $('#header').load('base/header.html');
       $('#footer').load('base/footer.html');
       $(window).on('load', function() {
         $('#page-title').text('Welcome');
         $('#page-subtitle').text('to Mint Cargo Boosting Logistics');
+
+        if (!cookies)
+          $("#cookies").modal('show');
       });
+
+      function acceptCookies() {
+        localStorage.setItem("cookies", "accepted");
+      }
     </script>
     <script src="build/js/bundle.min.js"></script>
   </body>
