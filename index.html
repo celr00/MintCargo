@@ -27,83 +27,42 @@
 
   <body>
 
-    <!-- Cookies Modal -->
-    <div class="modal" tabindex="-1" id="cookies">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Cookies</h5>
-          </div>
-          <div class="modal-body">
-            <p><b>For your information:</b> our website uses <i>cookies</i> to improve your experience.</p>
-          </div>
-          <div class="modal-footer">
-            <button onclick="acceptCookies()" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Accept</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div id="header"></div>
-    <section class="introduction container">
-      <h2 style="margin-top: 0;">Programs</h2>
-      <div class="programs">
-        <div class="program">
-          <h4>Minters Loyalty Program</h4>
-          <p> Our rewards programs thanks our customers for their preference. Points are awarded for each shipment, this point may be used to get a variety of products.</p>
-        </div>
-  
-        <div class="program">
-          <h4>Minters Quality Program</h4>
-          <p>System that allows us to guarantee that all of our customer's shipments will live up to high standards, minimizing risks that come with the administration of internation transportation.</p>
-        </div>
-
-        <div class="program">
-          <h4>Minters 24/7</h4>
-          <p>We attend your requests 24/7</p>
-          <ul>
-            <li>Quote Requests</li>
-            <li>Shipment Status</li>
-            <li>Reception of Instructions</li>
-            <li>Tracking</li>
-          </ul>
-        </div>
-      </div><!---programs-->
-      <a class="join" href="contact.html">Ask to Join</a>
-    </section>
-    <section class="certifications container" style="margin-top: 100px;">
-      <h2>Certifications</h2>
+    <section class="container-fluid login">
       <div class="row">
-        <div class="col-md-6 col-12 d-flex">
-          <img src="build/img/certificaciones1.png" alt="Amacarga Logo">
-          <img src="build/img/certificaciones2.png" alt="IATA Logo">
-          <img src="build/img/certificaciones3.png" alt="FMCSA Logo">
+        <!-- Decorator -->
+        <div id="decorator" class="col-lg-8 d-none d-lg-block">
+          <img class="logo" src="build/img/Logo_Mint_Transparente 534x206.png" alt="logo">
+          <div class="big-img">
+            <img src="https://img.freepik.com/vector-gratis/conjunto-elementos-logisticos_1284-21006.jpg?w=1380&t=st=1668227244~exp=1668227844~hmac=3f273f78c6b26545cab1c392fd89698972deeff2afe2f2395759e3902753e022" alt="Cargo">
+          </div>
         </div>
-        <div class="col-md-6 col-12 d-flex">
-          <img src="build/img/asociacion1.png" alt="LCO Logo">
-          <img src="build/img/asociacion2.png" alt="MFA Logo">
-          <img src="build/img/asociacion3.png" alt="MFA Logo">
+        <!-- Login -->
+        <div id="login" class="col-lg-4 col-12">
+          <form action="http://localhost/php/login.php" method="post">
+            <h3>Welcome! Please, login</h3>
+            <label for="email">Email</label>
+            <input type="email" name="email" placeholder="example@gmail.com" required autofocus/>
+            <label for="pass">Password</label>
+            <input type="password" name="pass" placeholder="********" required/>
+            <input id="input-url" type="hidden" name="url" value=""/>
+            <button class="btn btn-primary" type="submit">Login</button>
+            <h4><i id="msg"></i></h4>
+          </form>
         </div>
       </div>
     </section>
-    <div id="footer"></div>
-
-    <!-- Base header & footer -->
     <script>
-      let cookies = localStorage.getItem("cookies");
-      $('#header').load('base/header.html');
-      $('#footer').load('base/footer.html');
-      $(window).on('load', function() {
-        $('#page-title').text('Welcome');
-        $('#page-subtitle').text('to Mint Cargo Boosting Logistics');
 
-        if (!cookies)
-          $("#cookies").modal('show');
-      });
+      // Enviar el url a php
+      document.getElementById("input-url").value = window.location.href;
+      
+      // Conseguir parámetro 'msg'
+      let url = new URL(window.location.href);
+      let params = new URLSearchParams(url.search);
 
-      function acceptCookies() {
-        localStorage.setItem("cookies", "accepted");
-      }
+      // Desplegar texto
+      $("#msg").text(params.get('msg'));
+
     </script>
     <script src="build/js/bundle.min.js"></script>
   </body>

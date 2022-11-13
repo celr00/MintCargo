@@ -1,0 +1,68 @@
+.login {
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    label {
+        font-weight: bold;
+        font-size: larger;
+    }
+
+    input {
+        margin-bottom: 15px;
+        padding: 10px;
+    }
+}
+
+#decorator {
+
+    height: 100vh;
+    padding: 3em;
+
+    .logo {
+        width: 180px;
+    }
+
+    .big-img {
+        height: 80%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img {
+            width: 60%;
+            border-bottom: 15px solid $mint;
+            border-right: 15px solid $mint;
+            border-top: 5px solid rgb(243, 243, 243);
+            border-left: 5px solid rgb(243, 243, 243);
+            border-radius: 30px;
+        }
+    }
+
+}
+
+#login {
+
+    height: 100vh;
+    background-color: rgb(243, 243, 243);
+    padding: 3em;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    button {
+        @include button($mint, block);
+        font-size: medium;
+        margin-top: 10px;
+    }
+
+    // Msg
+    h4 {
+        text-align: center;
+        margin-top: 20px;
+        font-size: large;
+    }
+}
