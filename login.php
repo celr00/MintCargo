@@ -16,13 +16,14 @@
   // Correo y contraseña
   $email = $_POST["email"];
   $pass = $_POST["pass"];
+  $url = $_POST["url"];
 
-  $sql = "SELECT 1 FROM users WHERE email = '$email' and password = '$pass';";
+  $sql = "SELECT 1 FROM users WHERE email = '$email' and pass = '$pass';";
   $result = mysqli_query($link, $sql);
   if (mysqli_num_rows($result) > 0) {
-    header("Location: home.html");
+    header("Location: $url/home.html");
   } else {
-    header("Location: index.html?msg=Wrong credentials...");
+    header("Location: $url/index.html?msg=Wrong credentials...");
   }
 
   mysqli_close($link);
