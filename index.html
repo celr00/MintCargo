@@ -38,17 +38,28 @@
         </div>
         <!-- Login -->
         <div id="login" class="col-lg-4 col-12">
-          <form action="">
+          <form action="login.php" method="post">
             <h3>Welcome! Please, login</h3>
             <label for="email">Email</label>
             <input type="email" name="email" placeholder="example@gmail.com" required autofocus>
             <label for="pass">Password</label>
             <input type="password" name="pass" placeholder="********" required>
             <button class="btn btn-primary" type="submit">Login</button>
+            <h4><i id="msg"></i></h4>
           </form>
         </div>
       </div>
     </section>
+    <script>
+      
+      // Conseguir parámetro 'msg'
+      let url = new URL(window.location.href);
+      let params = new URLSearchParams(url.search);
+
+      // Desplegar texto
+      $("#msg").text(params.get('msg'));
+
+    </script>
     <script src="build/js/bundle.min.js"></script>
   </body>
 </html>
