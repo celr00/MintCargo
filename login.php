@@ -17,13 +17,19 @@
   $email = $_POST["email"];
   $pass = $_POST["pass"];
   $url = $_POST["url"];
+  if (str_contains($url, "index.html")) {
+    $url = str_replace("index.html", '', $url);
+  }
+  if (str_contains($url, "?msg=Wrong%20credentials...")) {
+    $url = str_replace("?msg=Wrong%20credentials...", '', $url);
+  }
 
   $sql = "SELECT 1 FROM users WHERE email = '$email' and pass = '$pass';";
   $result = mysqli_query($link, $sql);
   if (mysqli_num_rows($result) > 0) {
-    header("Location: $url/home.html");
+    header("Location: $url" . "home.html");
   } else {
-    header("Location: $url/index.html?msg=Wrong credentials...");
+    header("Location: $url" . "index.html?msg=Wrong credentials...");
   }
 
   mysqli_close($link);
