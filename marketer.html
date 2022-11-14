@@ -22,12 +22,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="build/css/app.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="build/img/favicon.ico">
-    <title>Page Title</title>
+    <title>Transport Insurance</title>
   </head>
 
   <body>
 
     <div id="header"></div>
+    
+    <div class="service-page container">
+      <main>
+        <p>We have a marketer to facilitate the import of your products, we have customs agency is in the main ports and airports of the country.
+        </p>
+
+      </main>
+  
+      <aside>
+        <h4>Primary Services</h4>
+        <ul>
+          <li><a href="inland.html">Inland Transport</a></li>
+          <li><a href="maritime.html">Maritime Transport</a></li>
+          <li><a href="air.html">Air Transport</a></li>
+          <li><a href="storage.html">Storage</a></li>
+        </ul>
+
+        <h4>Complementary Services</h4>
+        <ul>
+          <li><a href="customs.html">Customs</a></li>
+          <li><a href="representation.html">Global Representation</a></li>
+          <li><a href="marketer.html">Marketer</a></li>
+        </ul>
+      </aside>
+    </div>
+
     <div id="footer"></div>
 
     <!-- Base header & footer -->
@@ -35,8 +61,7 @@
       $('#header').load('base/header.html');
       $('#footer').load('base/footer.html');
       $(window).on('load', function() {
-        $('#page-title').text('Title');
-        $('#page-subtitle').text('Subtitle');
+        $('#page-title').text('Transport Insurance');
       });
     </script>
     <script src="build/js/bundle.min.js"></script>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ESSSZLT94C"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-ESSSZLT94C');
+    </script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="build/css/app.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="build/img/favicon.ico">
+    <title>Inland Transport</title>
+  </head>
+
+  <body>
+
+    <div id="header"></div>
+    
+    <div class="service-page container">
+      <main>
+        <p>An extensive network of carriers and our experienced team guarantee the coverage, availability and delivery time necessary for traffic between Canada, the United States and Mexico.</p>
+
+        <p>Our processes are designed to make our customers competitive, we have high quality standards, which integrated into our agreements with certified suppliers minimize transport risks.</p>
+
+        <h4>Services</h4>
+
+        <ul>
+          <li>Dry Van</li>
+          <li>LTL</li>
+          <li>Intermodal</li>
+          <li>Platform</li>
+          <li>Specialized Equipment</li>
+          <li>Hazmat</li>
+        </ul>
+  
+      </main>
+  
+      <aside>
+        <h4>Primary Services</h4>
+        <ul>
+          <li><a href="maritime.html">Maritime Transport</a></li>
+          <li><a href="air.html">Air Transport</a></li>
+          <li><a href="storage.html">Storage</a></li>
+        </ul>
+
+        <h4>Complementary Services</h4>
+        <ul>
+          <li><a href="insurance.html">Transport Insurance</a></li>
+          <li><a href="customs.html">Customs</a></li>
+          <li><a href="representation.html">Global Representation</a></li>
+          <li><a href="marketer.html">Marketer</a></li>
+        </ul>
+      </aside>
+    </div>
+
+    <div id="footer"></div>
+
+    <!-- Base header & footer -->
+    <script>
+      $('#header').load('base/header.html');
+      $('#footer').load('base/footer.html');
+      $(window).on('load', function() {
+        $('#page-title').text('Inland');
+      });
+    </script>
+    <script src="build/js/bundle.min.js"></script>
+  </body>
+</html>
