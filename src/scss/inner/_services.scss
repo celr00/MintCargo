@@ -3,11 +3,62 @@
         color: $mint;
         margin-bottom: 2rem;
     }
-    margin-bottom: $spacing;
 }
 
 .card {
-    img {
-        height: 16rem;
+    margin-bottom: $spacing;
+    img{
+        height: 20rem;
     }
+}
+
+.card-body {
+    height: 15rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title-container{
+    height: 8rem;
+}
+
+.card-title {
+    margin: 0;
+}
+
+.btn {
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.service-page {
+    @include tablet {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 1rem;
+    }
+
+    main {
+        grid-column: 1/3;
+        ul {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+    }
+
+    aside {
+        display: none;
+        @include tablet{
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    margin-bottom: $spacing;
+}
+
+.small-service {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
