@@ -28,24 +28,17 @@
   <body>
 
     <div id="header"></div>
-    <section class="certifications container">
-      <div class="certifications-content">
-        <div class="images">
-          <img src="build/img/certificaciones1.png" alt="Amacarga Logo">
-          <img src="build/img/certificaciones2.png" alt="IATA Logo">
-          <img src="build/img/certificaciones3.png" alt="FMCSA Logo">
-          <img src="build/img/asociacion1.png" alt="LCO Logo">
-          <img src="build/img/asociacion2.png" alt="MFA Logo">
-          <img src="build/img/asociacion3.png" alt="MFA Logo">
-        </div>
-      </div>
-    </section>
+    
     <div id="footer"></div>
 
     <!-- Base header & footer -->
     <script>
       $('#header').load('base/header.html');
       $('#footer').load('base/footer.html');
+      $(window).on('load', function() {
+        $('#page-title').text('Title');
+        $('#page-subtitle').text('Subtitle');
+      });
     </script>
     <script src="build/js/bundle.min.js"></script>
   </body>
