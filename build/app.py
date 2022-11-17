@@ -18,5 +18,9 @@ def services():
 def contact():
     return render_template('contact.html')
 
+@app.route('/privacy')
+def privacy_policy():
+    return render_template('privacy.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
