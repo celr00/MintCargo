@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% block title%}About Us{% endblock %}
+{% block subtitle%}meet our aspirations...{% endblock %}
+
+{% block content %}
+
+<section class="about-us container">
+  <div class="row">
+    <div class="col-lg-4 col-12">
+      <span id="about-header"><b>Our</b> Story</span>
+      <p>
+        Our passion is to promote international logistics offering our clients the talent and resources needed, improving their transportation service experience. We are located in Monterrey, CDMX, Querétaro, Toluca and Laredo TX, but we offer our services worldwide. We consider ourselves specialists in land traffic between Canada, United States and Mexico.
+      </p>
+    </div>
+    <div class="col-lg-1 col-12">
+      <hr>
+    </div>
+    <div id="values" class="col-lg-7 col-12">
+      <div class="justify-right">
+        <span class="value"><b>Mission</b></span>
+        <p>
+          Our main goal is to integrate human capital and resources to boost international logistics while granting our clients a great experience
+        </p>
+      </div>
+      <div class="justify-right">
+        <span class="value"><b>Vision</b></span>
+        <p>
+          We aim to be an example of creativity in logistics and inspire other companies
+        </p>
+      </div>
+      <div class="justify-right">
+        <span class="value"><b>Values</b></span>
+        <p>Creativity</p>
+        <p>Great quality</p>
+        <p>Excellent customer service</p>
+      </div>
+    </div>
+  </div>
+</section>
+<div id="footer"></div>
+
+<!-- Base header & footer -->
+<script>
+  $('#header').load('base/header.html');
+  $('#footer').load('base/footer.html');
+  $(window).on('load', function() {
+    $('#page-title').text('About Us');
+    $('#page-subtitle').text('meet our aspirations...');
+  });
+</script>
+<script src="build/js/bundle.min.js"></script>
+
+{% endblock %}
