@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ESSSZLT94C"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-ESSSZLT94C');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/app.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+    <title>Mint Cargo</title>
+  </head>
+
+  <body>
+    <header class="header start">
+        <div class="header-content container">
+            <div class="barra">
+              <a href="/">
+                <img >
+                <picture>
+                    <source srcset="{{ url_for('static', filename='img/logoMint.webp') }}" type="image/webp">
+                    <source srcset="{{ url_for('static', filename='img/logoMint.png') }}" type="image/png">
+                    <img loading="lazy" src="{{ url_for('static', filename='img/logoMint.png') }}" alt="logo">
+                </picture>
+            </a>
+            <nav class="navigation">
+              <a href="home.html">HOME</a>
+              <a href="about-us.html">ABOUT</a>
+              <a href="service.html">SERVICES</a>
+              <a href="contact.html">CONTACT</a>
+              <a href="index.html">LOGOUT</a>
+            </nav>
+          </div>
+          <div>
+            <h1 id="page-title">{% block title %}{% endblock %}</h1>
+            <h3 id="page-subtitle">{% block subtitle %}{% endblock %}</h3>
+          </div>
+        </div>
+    </header>
+
+      {% block content %}
+
+      {% endblock %}
+
+      <footer class="footer">
+        <hr width="30%" class="white-spacer">
+        <nav class="navigation_footer">
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="about-us.html">About</a>
+          <a href="service.html">Services</a>
+          <a href="contact.html">Contact</a>
+          <a href="index.html">Logout</a>
+        </nav>
+        <p>Connect with us</p>
+        <div class="media d-flex socials">
+          <a href="tel:+528141708295">
+            <picture>
+                <source 
+                    srcset="{{ url_for('static', filename='img/phone-icon.webp') }}" 
+                    type="image/webp">
+                <source 
+                    srcset="{{ url_for('static', filename='img/phone-icon.png') }}" 
+                    type="image/png">
+                <img 
+                    loading="lazy" 
+                    src="{{ url_for('static', filename='img/phone-icon.webp') }}" alt="phone img">
+            </picture>
+          </a>
+
+          <a href="https://www.facebook.com/mintcargo">
+            <picture>
+                <source 
+                    srcset="{{ url_for('static', filename='img/facebook-logo.webp') }}" 
+                    type="image/webp">
+                <source 
+                    srcset="{{ url_for('static', filename='img/facebook-logo.png') }}" 
+                    type="image/png">
+                <img 
+                    loading="lazy" 
+                    src="{{ url_for('static', filename='img/facebook-logo.webp') }}" alt="facebook icon">
+            </picture>
+          </a>
+
+          <a href="https://www.instagram.com/mintcargo/?hl=es">
+            <picture>
+                <source 
+                    srcset="{{ url_for('static', filename='img/instagram-logo.webp') }}" 
+                    type="image/webp">
+                <source 
+                    srcset="{{ url_for('static', filename='img/instagram-logo.png') }}" 
+                    type="image/png">
+                <img 
+                    loading="lazy" 
+                    src="{{ url_for('static', filename='img/instagram-logo.webp') }}" alt="instagram icon">
+            </picture>
+          </a>
+
+          <a href="https://twitter.com/MintCargo?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor">
+            <picture>
+                <source 
+                    srcset="{{ url_for('static', filename='img/twitter-logo.webp') }}" 
+                    type="image/webp">
+                <source 
+                    srcset="{{ url_for('static', filename='img/twitter-logo.png') }}" 
+                    type="image/png">
+                <img 
+                    loading="lazy" 
+                    src="{{ url_for('static', filename='img/twitter-logo.webp') }}" alt="twitter icon">
+            </picture>
+          </a>
+
+          <a href="https://www.youtube.com/c/MintcargoMx2013">
+            <picture>
+                <source 
+                    srcset="{{ url_for('static', filename='img/youtube-logo.webp') }}" 
+                    type="image/webp">
+                <source 
+                    srcset="{{ url_for('static', filename='img/youtube-logo.png') }}" 
+                    type="image/png">
+                <img 
+                    loading="lazy" 
+                    src="{{ url_for('static', filename='img/youtube-logo.webp') }}" alt="youtube icon">
+            </picture>
+          </a>
+
+          <a href="https://mx.linkedin.com/company/mint-cargo">
+            <picture>
+                <source 
+                    srcset="{{ url_for('static', filename='img/linkedin-logo.webp') }}" 
+                    type="image/webp">
+                <source 
+                    srcset="{{ url_for('static', filename='img/linkedin-logo.png') }}" 
+                    type="image/png">
+                <img 
+                    loading="lazy" 
+                    src="{{ url_for('static', filename='img/linkedin-logo.webp') }}" alt="linkedin icon">
+            </picture>
+          </a>
+        </div>
+        <div class="centered-text container">
+          <span class="copyright">COPYRIGHT &copy; 2022 MINT CARGO BOOSTING LOGISTICS - ALL RIGHTS RESERVED.</span>
+        </div>
+      </footer>
+    <script src="{{ url_for('static', filename='js/bundle.min.js') }}"></script>
+  </body>
+</html>
