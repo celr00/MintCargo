@@ -28,26 +28,28 @@
 
   <body>
     <header class="header start">
-      <div class="header-content container">
-        <div class="barra">
-          <a href="/">
-            <picture>
-              <source srcset="{{ url_for('static', filename='img/logoMint.webp') }}" type="image/webp">
-              <source srcset="{{ url_for('static', filename='img/logoMint.png') }}" type="image/png">
-              <img loading="lazy" src="{{ url_for('static', filename='img/logoMint.png') }}" alt="logo">
-            </picture>
-          </a>
-          <nav class="navigation">
-            <a href="home.html">HOME</a>
-            <a href="about-us.html">ABOUT</a>
-            <a href="service.html">SERVICES</a>
-            <a href="contact.html">CONTACT</a>
-            <a href="index.html">LOGOUT</a>
-          </nav>
-        </div><!--.barra-->
-        <div>
-          <h1 id="page-title">{% block title %}{% endblock %}</h1>
-          <h3 id="page-subtitle">{% block subtitle %}{% endblock %}</h3>
+        <div class="header-content container">
+            <div class="barra">
+              <a href="/">
+                <img >
+                <picture>
+                  <source srcset="{{ url_for('static', filename='img/logoMint.webp') }}" type="image/webp">
+                  <source srcset="{{ url_for('static', filename='img/logoMint.png') }}" type="image/png">
+                  <img loading="lazy" src="{{ url_for('static', filename='img/logoMint.png') }}" alt="logo">
+                </picture>
+            </a>
+            <nav class="navigation">
+              <a href="/">HOME</a>
+              <a href="about">ABOUT</a>
+              <a href="services">SERVICES</a>
+              <a href="contact">CONTACT</a>
+              <a href="/">LOGOUT</a>
+            </nav>
+          </div>
+          <div>
+            <h1 id="page-title">{% block title %}{% endblock %}</h1>
+            <h3 id="page-subtitle">{% block subtitle %}{% endblock %}</h3>
+          </div>
         </div>
       </div>
     </header>
@@ -59,11 +61,11 @@
       <footer class="footer">
         <hr width="30%" class="white-spacer">
         <nav class="navigation_footer">
-          <a href="privacy.html">Privacy Policy</a>
-          <a href="about-us.html">About</a>
-          <a href="service.html">Services</a>
-          <a href="contact.html">Contact</a>
-          <a href="index.html">Logout</a>
+          <a href="privacy">Privacy Policy</a>
+          <a href="about">About</a>
+          <a href="services">Services</a>
+          <a href="contact">Contact</a>
+          <a href="/">Logout</a>
         </nav>
         <p>Connect with us</p>
         <div class="media d-flex socials">
