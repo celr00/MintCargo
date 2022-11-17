@@ -1,3 +1,6 @@
 node_modules
 package-lock.json
-build
+build/__pycache__
+build/static/css
+build/static/js
+build/static/img
