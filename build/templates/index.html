@@ -1,0 +1,82 @@
+{% extends "layout.html" %}
+
+{% block title%}Welcome{% endblock %}
+{% block subtitle%}to Mint Cargo Boosting Logistics{% endblock %}
+
+{% block content %}
+<!-- Cookies Modal -->
+<div class="modal" tabindex="-1" id="cookies">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cookies</h5>
+      </div>
+      <div class="modal-body">
+        <p><b>For your information:</b> our website uses <i>cookies</i> to improve your experience.</p>
+      </div>
+      <div class="modal-footer">
+        <button onclick="acceptCookies()" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Accept</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Mint Cargo Programs-->
+<section class="introduction container">
+  <h2 style="margin-top: 0;">Programs</h2>
+  <div class="programs">
+    <div class="program">
+      <h4>Minters Loyalty Program</h4>
+      <p> Our rewards programs thanks our customers for their preference. Points are awarded for each shipment, this point may be used to get a variety of products.</p>
+    </div>
+
+    <div class="program">
+      <h4>Minters Quality Program</h4>
+      <p>System that allows us to guarantee that all of our customer's shipments will live up to high standards, minimizing risks that come with the administration of internation transportation.</p>
+    </div>
+
+    <div class="program">
+      <h4>Minters 24/7</h4>
+      <p>We attend your requests 24/7</p>
+      <ul>
+        <li>Quote Requests</li>
+        <li>Shipment Status</li>
+        <li>Reception of Instructions</li>
+        <li>Tracking</li>
+      </ul>
+    </div>
+  </div><!---programs-->
+  <a class="join" href="contact.html">Ask to Join</a>
+</section>
+
+<!--Certifiations-->
+<section class="certifications container" style="margin-top: 100px;">
+  <h2>Certifications</h2>
+  <div class="row">
+    <div class="col-md-6 col-12 d-flex">
+      <img src="build/img/certificaciones1.png" alt="Amacarga Logo">
+      <img src="build/img/certificaciones2.png" alt="IATA Logo">
+      <img src="build/img/certificaciones3.png" alt="FMCSA Logo">
+    </div>
+    <div class="col-md-6 col-12 d-flex">
+      <img src="build/img/asociacion1.png" alt="LCO Logo">
+      <img src="build/img/asociacion2.png" alt="MFA Logo">
+      <img src="build/img/asociacion3.png" alt="MFA Logo">
+    </div>
+  </div>
+</section>
+
+<!--Cookie Notice-->
+<script>
+  let cookies = localStorage.getItem("cookies");
+  $(window).on('load', function() {
+    if (!cookies)
+      $("#cookies").modal('show');
+  });
+
+  function acceptCookies() {
+    localStorage.setItem("cookies", "accepted");
+  }
+</script>
+
+{% endblock %}
