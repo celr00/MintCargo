@@ -47,22 +47,69 @@
       </ul>
     </div>
   </div>
-  <a class="join" href="contact.html">Ask to Join</a>
+  <a class="join" href="/contact">Ask to Join</a>
 </section>
 
 <!--Certifiations-->
 <section class="certifications container" style="margin-top: 100px;">
   <h2>Certifications</h2>
-  <div class="row">
-    <div class="col-md-6 col-12 d-flex">
-      <img src="../static/img/certificaciones1.webp" alt="Amacarga Logo">
-      <img src="../static/img/certificaciones2.webp" alt="IATA Logo">
-      <img src="../static/img/certificaciones3.webp" alt="FMCSA Logo">
-    </div>
-    <div class="col-md-6 col-12 d-flex">
-      <img src="../static/img/asociacion1.webp" alt="LCO Logo">
-      <img src="../static/img/asociacion2.webp" alt="MFA Logo">
-      <img src="../static/img/asociacion3.webp" alt="WCA Logo">
+  <div class="">
+
+    <div class="row d-flex">
+      <picture class="col-4 col-sm-2">
+        <source 
+          srcset="{{ url_for('static', filename='img/certificaciones1.webp') }}" 
+          type="image/webp">
+          <source 
+          srcset="{{ url_for('static', filename='img/certificaciones1.png') }}" 
+          type="image/png">
+        <img src="{{ url_for('static', filename='img/certificaciones1.webp') }}" alt="MFA Logo">
+      </picture>
+      <picture class="col-4 col-sm-2">
+        <source 
+          srcset="{{ url_for('static', filename='img/certificaciones2.webp') }}" 
+          type="image/webp">
+          <source 
+          srcset="{{ url_for('static', filename='img/certificaciones2.png') }}" 
+          type="image/png">
+        <img src="{{ url_for('static', filename='img/certificaciones2.webp') }}" alt="IATA Logo">
+      </picture>
+      <picture class="col-4 col-sm-2">
+        <source 
+          srcset="{{ url_for('static', filename='img/certificaciones3.webp') }}" 
+          type="image/webp">
+          <source 
+          srcset="{{ url_for('static', filename='img/certificaciones3.png') }}" 
+          type="image/png">
+        <img src="{{ url_for('static', filename='img/certificaciones3.webp') }}" alt="Amacarga Logo">
+      </picture>
+      <picture class="col-4 col-sm-2">
+        <source 
+          srcset="{{ url_for('static', filename='img/asociacion1.webp') }}" 
+          type="image/webp">
+          <source 
+          srcset="{{ url_for('static', filename='img/asociacion1.png') }}" 
+          type="image/png">
+        <img src="{{ url_for('static', filename='img/asociacion1.webp') }}" alt="MFA Logo">
+      </picture>
+      <picture class="col-4 col-sm-2">
+        <source 
+          srcset="{{ url_for('static', filename='img/asociacion2.webp') }}" 
+          type="image/webp">
+          <source 
+          srcset="{{ url_for('static', filename='img/asociacion2.png') }}" 
+          type="image/png">
+        <img src="{{ url_for('static', filename='img/asociacion2.webp') }}" alt="IATA Logo">
+      </picture>
+      <picture class="col-4 col-sm-2">
+        <source 
+          srcset="{{ url_for('static', filename='img/asociacion3.webp') }}" 
+          type="image/webp">
+          <source 
+          srcset="{{ url_for('static', filename='img/asociacion3.png') }}" 
+          type="image/png">
+        <img src="{{ url_for('static', filename='img/asociacion3.webp') }}" alt="Amacarga Logo">
+      </picture>
     </div>
   </div>
 </section>

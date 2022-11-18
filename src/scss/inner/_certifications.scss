@@ -4,12 +4,17 @@
 
     .col-12 {
         margin-bottom: 20px;
+        padding: 0;
     }
 
     .row {
+        picture{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
         img {
-            width: 25%;
-            margin: auto;
+            width: 100%;
             -webkit-filter: grayscale(100%) contrast(300%);
             filter: grayscale(100%) contrast(300%);
         }
