@@ -1,4 +1,7 @@
 from flask import Flask, render_template
+from dotenv import load_dotenv
+#Set .env variables into the os
+load_dotenv()
 
 app = Flask(__name__)
 
