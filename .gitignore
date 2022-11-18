@@ -5,4 +5,5 @@ build/static/css
 build/static/js
 build/static/img
 .venv/*
-build/.env/*
+build/venv/*
+build/.env
