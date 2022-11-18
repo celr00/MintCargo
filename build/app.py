@@ -1,10 +1,19 @@
+import os
 from flask import Flask, render_template
+from flask_mysqldb import MySQL
 from dotenv import load_dotenv
+
 #Set .env variables into the os
 load_dotenv()
 
 app = Flask(__name__)
 
+app.config['MYSQL_USER'] = os.environ['USER']
+app.config['MYSQL_PASSWORD'] = os.environ['PASSWORD']
+app.config['MYSQL_HOST'] = os.environ['HOST']
+app.config['MYSQL_DB'] = os.environ['DB']
+
+mysql = MySQL(app)
 
 @app.route('/')
 def index():
