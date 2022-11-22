@@ -26,7 +26,7 @@ function css() {
         .pipe(postcss([autoprefixer(), cssnano()]))
         // .pipe(postcss([autoprefixer()]))
         .pipe(sourcemaps.write('.'))
-        .pipe(dest('build/static/css'));
+        .pipe(dest('flask_app/static/css'));
 }
 
 function javascript() {
@@ -36,20 +36,20 @@ function javascript() {
       .pipe(terser())
       .pipe(sourcemaps.write('.'))
       .pipe(rename({ suffix: '.min' }))
-      .pipe(dest('./build/static/js'))
+      .pipe(dest('./flask_app/static/js'))
 }
 
 function imagenes() {
     return src(paths.imagenes)
         .pipe(cache(imagemin({ optimizationLevel: 3 })))
-        .pipe(dest('build/static/img'))
+        .pipe(dest('flask_app/static/img'))
         .pipe(notify({ message: 'Imagen Completada' }));
 }
 
 function versionWebp() {
     return src(paths.imagenes)
         .pipe(webp())
-        .pipe(dest('build/static/img'))
+        .pipe(dest('flask_app/static/img'))
         .pipe(notify({ message: 'Imagen Completada' }));
 }
 
