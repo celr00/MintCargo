@@ -20,12 +20,16 @@ mysql = MySQL(app)
 def index():
     return render_template('index.html')
 
-
 @app.route('/login')
 def login():
-    if 'loggedin' not in session:
-        return render_template('login.html')
-    return redirect(url_for('rewards.html'))
+    return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+    session.pop('loggedin')
+    session.pop('id')
+    session.pop('username')
+    return redirect('/')
 
 @app.route('/pythonlogin', methods=['GET', 'POST'])
 def pythonlogin():
@@ -42,7 +46,7 @@ def pythonlogin():
             session['loggedin'] = True
             session['id'] = account[0]
             session['username'] = account[1]
-            return 'Logged in successfully'
+            return redirect('/')
         
         else:
             msg = 'Incorrect username or password'

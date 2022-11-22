@@ -39,11 +39,22 @@
                 </picture>
             </a>
             <nav class="navigation">
+            {% block navigation %}
               <a href="/">HOME</a>
               <a href="../about">ABOUT</a>
               <a href="../services">SERVICES</a>
               <a href="../contact">CONTACT</a>
-              <a href="../login">REWARDS</a>
+
+              {% if session.loggedin %}
+                <a href="../rewards">REWARDS</a>
+                <a href="../logout">LOGOUT</a>
+              {% endif %}
+              
+              {% if not session.loggedin %}
+                <a href="../login">LOGIN</a>
+              {% endif %}
+              
+            {% endblock %}
             </nav>
           </div>
           <div>
