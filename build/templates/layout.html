@@ -39,22 +39,23 @@
                 </picture>
             </a>
             <nav class="navigation">
-            {% block navigation %}
-              <a href="/">HOME</a>
-              <a href="../about">ABOUT</a>
-              <a href="../services">SERVICES</a>
-              <a href="../contact">CONTACT</a>
+              {% block navigation %}
 
-              {% if session.loggedin %}
-                <a href="../rewards">REWARDS</a>
-                <a href="../logout">LOGOUT</a>
-              {% endif %}
-              
-              {% if not session.loggedin %}
-                <a href="../login">LOGIN</a>
-              {% endif %}
-              
-            {% endblock %}
+                <a href="/">HOME</a>
+                <a href="../about">ABOUT</a>
+                <a href="../services">SERVICES</a>
+                <a href="../contact">CONTACT</a>
+
+                {% if session.loggedin %}
+                  <a href="../rewards">REWARDS</a>
+                  <a href="../logout">LOGOUT</a>
+                {% endif %}
+                
+                {% if not session.loggedin %}
+                  <a href="../login">LOGIN</a>
+                {% endif %}
+
+              {% endblock %}
             </nav>
           </div>
           <div>
@@ -76,7 +77,6 @@
           <a href="../about">About</a>
           <a href="../services">Services</a>
           <a href="../contact">Contact</a>
-          <a href="../login">Logout</a>
         </nav>
         <p>Connect with us</p>
         <div class="media d-flex socials">
