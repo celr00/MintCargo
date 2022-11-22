@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for, session
 from flask_mysqldb import MySQL
 from dotenv import load_dotenv
 
@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__)
+app.secret_key = '485o2'
 
 app.config['MYSQL_USER'] = os.environ['USER']
 app.config['MYSQL_PASSWORD'] = os.environ['PASSWORD']
@@ -19,11 +20,37 @@ mysql = MySQL(app)
 def index():
     return render_template('index.html')
 
-
 @app.route('/login')
 def login():
     return render_template('login.html')
 
+@app.route('/logout')
+def logout():
+    session.pop('loggedin')
+    session.pop('id')
+    session.pop('username')
+    return redirect('/')
+
+@app.route('/pythonlogin', methods=['GET', 'POST'])
+def pythonlogin():
+    msg = ''
+    if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
+        _user = request.form['username']
+        _pass = request.form['password']
+
+        cursor = mysql.connection.cursor()
+        cursor.execute('SELECT * FROM users WHERE username = %s AND password = %s', (_user, _pass,))
+        account = cursor.fetchone()
+
+        if account:
+            session['loggedin'] = True
+            session['id'] = account[0]
+            session['username'] = account[1]
+            return redirect('/')
+        
+        else:
+            msg = 'Incorrect username or password'
+    return render_template('login.html', msg=msg)
 
 @app.route('/about')
 def about():
