@@ -1,9 +1,6 @@
 node_modules
 package-lock.json
-build/__pycache__
-build/static/css
-build/static/js
-build/static/img
-.venv/*
-build/venv/*
-build/.env
+flask_app/__pycache__
+flask_app/static
+flask_app/.env
+venv
