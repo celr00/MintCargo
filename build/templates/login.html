@@ -37,15 +37,14 @@
         </div>
         <!-- Login -->
         <div id="login" class="col-lg-4 col-12">
-          <form action="http://localhost/php/login.php" method="post">
+          <form action="/pythonlogin" method="POST">
             <h3>Welcome! Please, login</h3>
-            <label for="email">Email</label>
-            <input type="email" name="email" placeholder="example@gmail.com" required autofocus/>
+            <label for="username">Username</label>
+            <input type="text" name="username" placeholder="account123" required autofocus/>
             <label for="pass">Password</label>
-            <input type="password" name="pass" placeholder="********" required/>
-            <input id="input-url" type="hidden" name="url" value=""/>
+            <input type="password" name="password" placeholder="********" required/>
             <button class="btn btn-primary" type="submit">Login</button>
-            <h4><i id="msg"></i></h4>
+            <h4><i id="msg">{{ msg }}</i></h4>
           </form>
         </div>
       </div>
@@ -60,7 +59,7 @@
       let params = new URLSearchParams(url.search);
 
       // Desplegar texto
-      $("#msg").text(params.get('msg'));
+      //$("#msg").text(params.get('msg'));
 
     </script>
   </body>
