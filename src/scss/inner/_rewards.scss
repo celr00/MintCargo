@@ -9,9 +9,16 @@
 
     margin-bottom: 60px;
 
-    img {
-        border-radius: 10%;
-        border-left: 5px solid #46c4f3;
+    .row {
+        margin-bottom: 40px;
+    }
+
+    .left {
+        border-left: 8px solid #46c4f3;
+    }
+
+    .right {
+        border-right: 8px solid #46c4f3;
     }
 }
 
@@ -34,8 +41,8 @@
 
     // Product icon
     i {
-        font-size: 16px;
-        color: #e4253b;
+        font-size: 24px;
+        color: #f0ad4e;
     }
     
     .td-center {
@@ -52,12 +59,6 @@
 
     .orders {
         text-align: end;
-    }
-    
-    // Order icon
-    i {
-        font-size: 16px;
-        color: #e4253b;
     }
     
     .td-center {
