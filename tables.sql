@@ -27,9 +27,11 @@ CREATE TABLE points (
 CREATE TABLE orders (
   order_id INT PRIMARY KEY AUTO_INCREMENT,
   company_id INT NOT NULL,
+  address_id INT NOT NULL,
   created_at DATE NOT NULL,
   status VARCHAR(100) NOT NULL,
-  CONSTRAINT orders_fk FOREIGN KEY (company_id) REFERENCES companies (company_id)
+  CONSTRAINT orders_fk1 FOREIGN KEY (company_id) REFERENCES companies (company_id),
+  CONSTRAINT orders_fk2 FOREIGN KEY (address_id) REFERENCES addresses (address_id)
 );
 
 CREATE TABLE order_details (
