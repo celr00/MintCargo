@@ -73,7 +73,37 @@
       </section>
     </div>
     <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
-      <h3>Orders</h3>
+      <section class="orders container">
+        <div class="orders">
+          <p><b>Total number of orders: </b>{{ orders|length }}</p>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-dark table-striped table-hover">
+            <thead class="table">
+              <tr>
+                <th>#</th>
+                <th>Date</th>
+                <th>Address</th>
+                <!-- <th>Products</th> -->
+                <th>Total</th>
+                <th>Stauts</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for i in range(orders|length) %}
+                <tr>
+                    <td>{{ i+1 }}</td>
+                    <td>{{ orders[i][0] }}</td>
+                    <td>{{ orders[i][1] }}</td>
+                    <!-- <td>Soccer, speakers</td> -->
+                    <td>{{ orders[i][2] }} points</td>
+                    <td>{{ orders[i][3] }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </section>
     </div>
     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
       <section class="profile container">
