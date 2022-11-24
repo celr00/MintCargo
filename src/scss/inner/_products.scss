@@ -8,8 +8,10 @@
 
     // Product image
     img {
-        width: 100px;
-        height: 100px;
+        width: 120px;
+        height: 120px;
+        object-fit: scale-down;
+        mix-blend-mode: multiply;
     }
 
     // Product icon
