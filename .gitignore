@@ -1,6 +1,6 @@
 node_modules
 package-lock.json
-flask_app/__pycache__
+__pycache__
 flask_app/static
 flask_app/.env
 venv
