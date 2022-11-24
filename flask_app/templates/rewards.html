@@ -60,12 +60,17 @@
             <tbody>
               {% for product in products %}
                 <tr>
+                    <!-- img -->
                     <td class="td-center">
                       <img src="{{ product[3] }}" alt="Product Image">
                     </td>
+                    <!-- Name -->
                     <td>{{ product[1] }}</td>
+                    <!-- Desc -->
                     <td>{{ product[2] }}</td>
+                    <!-- Cost -->
                     <td class="td-center">{{ product[4] }} points</td>
+                    <!-- Claim -->
                     <td class="td-center">
                       {% if product[5][-1] == 1 %}
                         <button type="button" class="btn btn-dark">Claim</button>
@@ -92,7 +97,6 @@
                 <th>#</th>
                 <th>Date</th>
                 <th>Address</th>
-                <!-- <th>Products</th> -->
                 <th>Total</th>
                 <th>Status</th>
               </tr>
@@ -100,12 +104,16 @@
             <tbody>
               {% for i in range(orders|length) %}
                 <tr>
+                    <!-- # -->
                     <td>{{ i+1 }}</td>
+                    <!-- Date -->
                     <td>{{ orders[i][0] }}</td>
+                    <!-- Address -->
                     <td>{{ orders[i][1] }}</td>
-                    <!-- <td>Soccer, speakers</td> -->
+                    <!-- Total -->
                     <td>{{ orders[i][2] }} points</td>
-                    <td>{{ orders[i][3] }}</td>
+                    <!-- Status -->
+                    <td style="text-transform: capitalize;">{{ orders[i][3] }}</td>
                 </tr>
               {% endfor %}
             </tbody>
