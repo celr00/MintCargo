@@ -5,6 +5,21 @@
 
 {% block content %}
 
+<section class="rewards-info container">
+  <div class="row align-items-center">
+    <div class="col-md-4 col-12">
+      <img src="https://img.freepik.com/foto-gratis/coleccion-cajas-regalo_1156-851.jpg?w=826&t=st=1669268380~exp=1669268980~hmac=6f368b13277b6a86754b53c34dd26790df66acbbdb9c6ee3f338249486315b86" alt="Gift boxes">
+    </div>
+    <div class="col-md-8 col-12">
+      <h3>How does it work?</h3>
+      <p>We are very thankful with you for trusting us and using our services!</p>
+      <p>In order to show our appreciation, we will <i>award</i> you with points that can be traded for special products.</p>
+      <p>These points will be given to you after each shipment that you order.</p>
+      <p>Enjoy!</p>
+    </div>
+  </div>
+</section>
+
 <section class="products container" style="margin-bottom: 40px;">
   <div class="points">
     <p><b>{{ session.username }}</b> points: ...</p>
@@ -16,7 +31,7 @@
           <th></th>
           <th>Name</th>
           <th>Description</th>
-          <th>Cost</th>
+          <th class="td-center">Cost</th>
           <th></th>
         </tr>
       </thead>
@@ -33,9 +48,9 @@
                 {% if product[5][-1] == 1 %}
                   <button type="button" class="btn btn-dark">Claim</button>
                 {% else %}
-                  <i class="bi-x-circle-fill"></i>
-                  <br>
                   <span>Unavailable</span>
+                  <br>
+                  <i class="bi-x-circle-fill"></i>
                 {% endif %}
               </td>
           </tr>
