@@ -23,7 +23,7 @@ def pythonlogin():
 
         # Validate in MySQL
         cursor = mysql.connection.cursor()
-        cursor.execute('SELECT * FROM users WHERE username = %s AND password = %s;', (_user, _pass,))
+        cursor.execute('SELECT * FROM companies WHERE username = %s AND password = %s;', (_user, _pass,))
         account = cursor.fetchone()
 
         # Account exists in DB

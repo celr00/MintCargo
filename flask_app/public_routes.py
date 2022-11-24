@@ -52,3 +52,7 @@ def contact():
 @app.route('/privacy')
 def privacy_policy():
     return render_template('privacy.html')
+
+@app.route('/rewards')
+def rewards():
+    return render_template('rewards.html')
