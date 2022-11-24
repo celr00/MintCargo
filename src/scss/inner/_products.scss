@@ -1,0 +1,38 @@
+.rewards-info {
+
+    margin-bottom: 60px;
+
+    img {
+        border-radius: 10%;
+        border-left: 5px solid #46c4f3;
+    }
+}
+
+.products {
+
+    margin-bottom: 40px;
+    
+    .points {
+        text-align: end;
+    }
+
+    // Product image
+    img {
+        width: 120px;
+        height: 120px;
+        object-fit: scale-down;
+        mix-blend-mode: multiply;
+    }
+
+    // Product icon
+    i {
+        font-size: 16px;
+        color: #e4253b;
+    }
+    
+    .td-center {
+        vertical-align: middle;
+        text-align: center;
+    }
+
+}
