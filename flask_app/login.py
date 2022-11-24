@@ -31,7 +31,8 @@ def pythonlogin():
         if account:
             session['loggedin'] = True
             session['id'] = account[0]
-            session['username'] = account[1]
+            session['name'] = account[1]
+            session['user'] = account[2]
             return redirect('/')
         # Unknown credentials
         else:
