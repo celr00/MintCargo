@@ -25,6 +25,7 @@ def pythonlogin():
         cursor = mysql.connection.cursor()
         cursor.execute('SELECT * FROM companies WHERE username = %s AND password = %s;', (_user, _pass,))
         account = cursor.fetchone()
+        cursor.close()
 
         # Account exists in DB
         if account:

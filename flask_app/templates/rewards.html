@@ -5,8 +5,44 @@
 
 {% block content %}
 
-<section class="container">
-    <p>pendiente</p>
+<section class="products container" style="margin-bottom: 40px;">
+  <div class="points">
+    <p><b>{{ session.username }}</b> points: ...</p>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-striped table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th></th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Cost</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for product in data %}
+          <tr>
+              <td>
+                <img src="{{ product[3] }}" alt="Product Image">
+              </td>
+              <td>{{ product[1] }}</td>
+              <td>{{ product[2] }}</td>
+              <td class="td-center">{{ product[4] }} points</td>
+              <td class="td-center">
+                {% if product[5][-1] == 1 %}
+                  <button type="button" class="btn btn-dark">Claim</button>
+                {% else %}
+                  <i class="bi-x-circle-fill"></i>
+                  <br>
+                  <span>Unavailable</span>
+                {% endif %}
+              </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 </section>
 
 {% endblock %}

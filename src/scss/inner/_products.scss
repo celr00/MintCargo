@@ -1,0 +1,26 @@
+.products {
+
+    margin-bottom: 40px;
+    
+    .points {
+        text-align: end;
+    }
+
+    // Product image
+    img {
+        width: 100px;
+        height: 100px;
+    }
+
+    // Product icon
+    i {
+        font-size: 16px;
+        color: #e4253b;
+    }
+    
+    .td-center {
+        vertical-align: middle;
+        text-align: center;
+    }
+
+}

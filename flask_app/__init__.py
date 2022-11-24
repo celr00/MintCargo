@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 from flask import Flask
 from flask_mysqldb import MySQL
 
-#app creation
+# App creation
 app = Flask(__name__)
 
 # Set .env variables into the os
@@ -15,11 +15,11 @@ app.config['MYSQL_PASSWORD'] = os.environ['PASSWORD']
 app.config['MYSQL_HOST'] = os.environ['HOST']
 app.config['MYSQL_DB'] = os.environ['DB']
 
-#Connection to the database
+# Connection to the database
 mysql = MySQL(app)
 
-#Secret Key for session purposes 
+# Secret Key for session purposes 
 app.secret_key = '485o2'
 
-#Routes made in other documents
-from flask_app import public_routes, login
+# Routes made in other documents
+from flask_app import public_routes, rewards_system, login
