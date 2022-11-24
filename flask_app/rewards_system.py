@@ -1,5 +1,5 @@
 from flask_app import app, mysql
-from flask import render_template, redirect, session
+from flask import render_template, redirect, session, request
 
 @app.route('/rewards')
 def rewards():
@@ -12,7 +12,34 @@ def rewards():
 
     # Get product data
     cursor.execute('SELECT * FROM products')
-    data = cursor.fetchall()
+    product_data = cursor.fetchall()
+
+    # Get addresses data
+    cursor.execute('SELECT * FROM addresses WHERE company_id = %s;' % session['id'])
+    addresses_data = cursor.fetchall()
+
     cursor.close()
 
-    return render_template('rewards.html', data=data)
+    return render_template('rewards.html', products=product_data, addresses=addresses_data)
+
+@app.route('/update-user', methods=['GET', 'POST'])
+def update_user():
+
+    # Confirm login
+    if not session.get('loggedin') or not session['loggedin']:
+        return redirect('/login')
+
+    if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
+        # Extract credentials
+        _user = request.form['username']
+        _pass = request.form['password']
+
+        # Update credentials
+        cursor = mysql.connection.cursor()
+        cursor.execute('UPDATE companies SET username = %s, password = %s WHERE company_id = %s;', (_user, _pass, session['id']))
+        mysql.connection.commit()
+        session['user'] = _user
+        
+        cursor.close()
+
+    return redirect('/rewards')
