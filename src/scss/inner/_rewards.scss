@@ -9,9 +9,16 @@
 
     margin-bottom: 60px;
 
-    img {
-        border-radius: 10%;
-        border-left: 5px solid #46c4f3;
+    .row {
+        margin-bottom: 40px;
+    }
+
+    .left {
+        border-left: 8px solid #46c4f3;
+    }
+
+    .right {
+        border-right: 8px solid #46c4f3;
     }
 }
 
@@ -34,8 +41,8 @@
 
     // Product icon
     i {
-        font-size: 16px;
-        color: #e4253b;
+        font-size: 24px;
+        color: #f0ad4e;
     }
     
     .td-center {
@@ -54,12 +61,6 @@
         text-align: end;
     }
     
-    // Order icon
-    i {
-        font-size: 16px;
-        color: #e4253b;
-    }
-    
     .td-center {
         vertical-align: middle;
         text-align: center;
@@ -75,21 +76,17 @@
 .profile {
 
     background: 
-        linear-gradient(0deg, rgba(176, 176, 176, 0.7), rgba(176, 176, 176, 0.7)),
+        linear-gradient(0deg, rgba(230, 230, 230, 0.75), rgba(230, 230, 230, 0.75)),
         url(https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8YnVzaW5lc3MlMjBiYWNrZ3JvdW5kfGVufDB8fDB8fA%3D%3D&w=1000&q=80);
     margin: 0 0 40px 0;
-    padding: 3em;
+    padding: 5em;
 
     .divider {
         margin-bottom: 20px;
     }
 
-    form {
-        margin-bottom: 40px;
-
-        button {
-            width: 60%;
-        }
+    button {
+        width: 60%;
     }
 
     input {
