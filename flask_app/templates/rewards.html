@@ -152,9 +152,15 @@
             </div>
             <div class="divider">
               <h4>Address(es)</h4>
-              {% for address in addresses %}
-                <p>{{ address[1] }}</p>
-              {% endfor %}
+              {% if addresses|length > 0 %}
+                <ul>
+                  {% for address in addresses %}
+                    <li>{{ address[1] }}</li>
+                  {% endfor %}
+                </ul>
+              {% else %}
+                <p>There are no addresses for this company.</p>
+              {% endif %}
             </div>
             <div class="divider">
               <h4>Points</h4>
