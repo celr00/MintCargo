@@ -39,10 +39,19 @@
         mix-blend-mode: multiply;
     }
 
-    // Product icon
-    i {
+    // Claim button
+    button {
+        width: 90%;
+    }
+
+    // Product icons
+    .warning {
         font-size: 24px;
         color: #f0ad4e;
+    }
+    .danger {
+        font-size: 24px;
+        color: #d9534f;
     }
     
     .td-center {
