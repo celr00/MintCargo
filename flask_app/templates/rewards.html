@@ -43,46 +43,51 @@
     </div>
     <div class="tab-pane fade" id="catalog" role="tabpanel" aria-labelledby="catalog-tab">
       <section class="products container">
-        <div class="points">
-          <p><b>{{ session.name }}</b> points: </p>
-        </div>
-        <div class="table-responsive">
-          <table class="table table-striped table-hover">
-            <thead class="table-dark">
-              <tr>
-                <th></th>
-                <th>Name</th>
-                <th>Description</th>
-                <th class="td-center">Cost</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for product in products %}
+        {% if products|length > 0 %}
+          <div class="points">
+            <p><b>{{ session.name }}</b> points: </p>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-striped table-hover">
+              <thead class="table-dark">
                 <tr>
-                    <!-- img -->
-                    <td class="td-center">
-                      <img src="{{ product[3] }}" alt="Product Image">
-                    </td>
-                    <!-- Name -->
-                    <td>{{ product[1] }}</td>
-                    <!-- Desc -->
-                    <td>{{ product[2] }}</td>
-                    <!-- Cost -->
-                    <td class="td-center">{{ product[4] }} points</td>
-                    <!-- Claim -->
-                    <td class="td-center">
-                      {% if product[5][-1] == 1 %}
-                        <button type="button" class="btn btn-dark">Claim</button>
-                      {% else %}
-                        <i class="bi-exclamation-square-fill"></i>
-                      {% endif %}
-                    </td>
+                  <th></th>
+                  <th>Name</th>
+                  <th>Description</th>
+                  <th class="td-center">Cost</th>
+                  <th></th>
                 </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {% for product in products %}
+                  <tr>
+                      <!-- img -->
+                      <td class="td-center">
+                        <img src="{{ product[3] }}" alt="Product Image">
+                      </td>
+                      <!-- Name -->
+                      <td>{{ product[1] }}</td>
+                      <!-- Desc -->
+                      <td>{{ product[2] }}</td>
+                      <!-- Cost -->
+                      <td class="td-center">{{ product[4] }} points</td>
+                      <!-- Claim -->
+                      <td class="td-center">
+                        {% if product[5][-1] == 1 %}
+                          <button type="button" class="btn btn-dark">Claim</button>
+                        {% else %}
+                          <i class="bi-exclamation-square-fill"></i>
+                        {% endif %}
+                      </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        {% else %}
+          <h3>An error ocurred trying to retrieve our catalog...</h3>
+          <p class="text-center">Please, try again later</p>
+        {% endif %}
       </section>
     </div>
     <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
@@ -122,7 +127,7 @@
           </div>
         {% else %}
           <h3>You have no orders yet</h3>
-          <p class="text-center">Provided you have enough points, you can claim and order a prize of your choice by clicking the "catalog" menu right above this message.</p>
+          <p class="text-center">Provided you have enough points, you can claim and order a prize of your choice by clicking the "catalog" menu right above this message</p>
         {% endif %}
       </section>
     </div>
