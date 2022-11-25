@@ -73,9 +73,9 @@
                       <td class="td-center">{{ product[4] }} points</td>
                       <!-- Claim -->
                       <td class="td-center">
-                        {% if product[5][-1] == 1 and points >= product[4] %}
+                        {% if product[5][-1] == 1 and session.points >= product[4] %}
                           <button type="button" class="btn btn-dark">Claim</button>
-                        {% elif points < product[4] %}
+                        {% elif session.points < product[4] %}
                           <i class="bi-cash-coin warning"></i>
                           <span>Not enough</span>
                         {% else %}
@@ -105,9 +105,9 @@
               <thead class="table">
                 <tr>
                   <th>#</th>
+                  <th>Product</th>
+                  <th>Quantity</th>
                   <th>Date</th>
-                  <th>Address</th>
-                  <th>Total</th>
                   <th>Status</th>
                 </tr>
               </thead>
@@ -116,12 +116,12 @@
                   <tr>
                       <!-- # -->
                       <td>{{ i+1 }}</td>
-                      <!-- Date -->
+                      <!-- Product -->
                       <td>{{ orders[i][0] }}</td>
-                      <!-- Address -->
+                      <!-- Quantity -->
                       <td>{{ orders[i][1] }}</td>
-                      <!-- Total -->
-                      <td>{{ orders[i][2] }} points</td>
+                      <!-- Date -->
+                      <td>{{ orders[i][2] }}</td>
                       <!-- Status -->
                       <td style="text-transform: capitalize;">{{ orders[i][3] }}</td>
                   </tr>

@@ -15,7 +15,7 @@ def rewards():
     product_data = cursor.fetchall()
 
     # Get orders data
-    cursor.execute('SELECT created_at, address_line1, SUM(points_spent), status FROM orders NATURAL JOIN order_details NATURAL JOIN addresses WHERE orders.company_id = %s GROUP BY orders.order_id ORDER BY created_at DESC;' % session['id'])
+    cursor.execute('SELECT product_name, quantity, created_at, status FROM orders NATURAL JOIN products WHERE company_id = %s ORDER BY created_at DESC;' % session['id'])
     orders_data = cursor.fetchall()
 
     # Get addresses data
