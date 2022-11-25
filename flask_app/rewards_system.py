@@ -22,13 +22,9 @@ def rewards():
     cursor.execute('SELECT * FROM addresses WHERE company_id = %s;' % session['id'])
     addresses_data = cursor.fetchall()
 
-    # Get company's points
-    cursor.execute('CALL Points_GetByCompany(%s);' % session['id'])
-    points_data = cursor.fetchone()
-
     cursor.close()
 
-    return render_template('rewards.html', products=product_data, orders=orders_data, addresses=addresses_data, points=points_data[0])
+    return render_template('rewards.html', products=product_data, orders=orders_data, addresses=addresses_data)
 
 @app.route('/update-user', methods=['GET', 'POST'])
 def update_user():
