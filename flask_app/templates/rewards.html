@@ -45,7 +45,7 @@
       <section class="products container">
         {% if products|length > 0 %}
           <div class="points">
-            <p><b>{{ session.name }}</b> points: </p>
+            <p><b>{{ session.name }}</b> points: {{ points }}</p>
           </div>
           <div class="table-responsive">
             <table class="table table-striped table-hover">
@@ -164,7 +164,7 @@
             </div>
             <div class="divider">
               <h4>Points</h4>
-              <p></p>
+              <p>{{ points }}</p>
             </div>
           </div>
         </div>
