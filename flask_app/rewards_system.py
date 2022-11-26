@@ -107,7 +107,7 @@ def create_order():
 
         cursor.close()
     
-    return redirect('/rewards')
+    return redirect('/rewards/info')
 
 @app.route('/update-user', methods=['GET', 'POST'])
 def update_user():
@@ -129,4 +129,4 @@ def update_user():
         
         cursor.close()
 
-    return redirect('/rewards')
+    return redirect('/rewards/profile')
