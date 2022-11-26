@@ -4,43 +4,39 @@
 
 {% block content %}
 
-<section class="orders container">
-    {% if companies|length > 0 %}
-      <div class="orders">
-        <p><b>Total number of orders: </b>{{ orders|length }}</p>
+<section class="query-header container">
+    {% if users|length > 0 %}
+      <div class="query-info">
+        <p><b>Total number of users: </b>{{ users|length }}</p>
       </div>
       <div class="table-responsive">
         <table class="table table-dark table-striped table-hover">
           <thead class="table">
             <tr>
               <th>#</th>
-              <th>Product</th>
-              <th>Quantity</th>
-              <th>Date</th>
-              <th>Status</th>
+              <th>Company</th>
+              <th>Username</th>
+              <th>Password</th>
             </tr>
           </thead>
           <tbody>
-            {% for i in range(orders|length) %}
+            {% for i in range(users|length) %}
               <tr>
                   <!-- # -->
                   <td>{{ i+1 }}</td>
                   <!-- Product -->
-                  <td>{{ orders[i][0] }}</td>
+                  <td>{{ users[i][0] }}</td>
                   <!-- Quantity -->
-                  <td>{{ orders[i][1] }}</td>
+                  <td>{{ users[i][1] }}</td>
                   <!-- Date -->
-                  <td>{{ orders[i][2] }}</td>
-                  <!-- Status -->
-                  <td style="text-transform: capitalize;">{{ orders[i][3] }}</td>
+                  <td>{{ users[i][2] }}</td>
               </tr>
             {% endfor %}
           </tbody>
         </table>
       </div>
     {% else %}
-      <h3>You have no orders yet</h3>
-      <p class="text-center">Provided you have enough points, you can claim and order a prize of your choice by clicking the "catalog" menu right above this message</p>
+      <h3>There are no active users</h3>
     {% endif %}
   </section>
 
