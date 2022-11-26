@@ -25,7 +25,7 @@ DELIMITER ;
 
 -- Create an order, and subtract points
 DELIMITER //
-CREATE PROCEDURE Orders_CreateOrder(IN company_idP INT, IN product_idP INT, IN quantityP INT)
+CREATE PROCEDURE Orders_CreateOrder(IN company_idP INT, IN address_idP INT, IN product_idP INT, IN quantityP INT)
     BEGIN
 
         -- Variables
@@ -36,8 +36,8 @@ CREATE PROCEDURE Orders_CreateOrder(IN company_idP INT, IN product_idP INT, IN q
         DECLARE points INT DEFAULT 0;
 
         -- Insert new order
-        INSERT INTO orders (company_id, product_id, quantity, created_at, status) VALUES
-        (company_idP, product_idP, quantityP, CURDATE(), 'processed');
+        INSERT INTO orders (company_id, address_id, product_id, quantity, created_at, status) VALUES
+        (company_idP, address_idP, product_idP, quantityP, CURDATE(), 'processed');
 
         -- Get total of points to subtract
         SELECT (product_unit_price * quantityP) INTO total_points FROM products WHERE product_id = product_idP;
