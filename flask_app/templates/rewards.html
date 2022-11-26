@@ -206,8 +206,8 @@
     inputProduct.value = id;
     
     let inputQuantity = document.getElementById('quantity');
+    inputQuantity.value = 1;
     inputQuantity.max = Math.floor(points / cost);
-    console.log(Math.floor(points / cost));
 
     $("#order").modal('show');
   }

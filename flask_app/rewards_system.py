@@ -10,6 +10,11 @@ def rewards():
 
     cursor = mysql.connection.cursor()
 
+    # Get company's points
+    cursor.execute('CALL Points_GetByCompany(%s);' % session['id'])
+    points = cursor.fetchone()
+    session['points'] = points[0]
+
     # Get product data
     cursor.execute('SELECT * FROM products')
     product_data = cursor.fetchall()

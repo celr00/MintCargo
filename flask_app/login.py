@@ -28,6 +28,7 @@ def pythonlogin():
         cursor = mysql.connection.cursor()
         cursor.execute('SELECT * FROM companies WHERE username = %s AND password = %s;', (_user, _pass,))
         account = cursor.fetchone()
+        cursor.close()
 
         # Account exists in DB
         if account:
@@ -37,12 +38,6 @@ def pythonlogin():
             session['id'] = account[0]
             session['name'] = account[1]
             session['user'] = account[2]
-
-            # Get company's points
-            cursor.execute('CALL Points_GetByCompany(%s);' % session['id'])
-            points = cursor.fetchone()
-            cursor.close()
-            session['points'] = points[0]
 
             return redirect('/')
 
