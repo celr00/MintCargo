@@ -92,14 +92,22 @@
     padding: 25px;
     text-align: center;
 
+    .form-options {
+        margin-bottom: 25px;
+    }
+
+    h4 {
+        margin-bottom: 4px;
+    }
+
     label {
         font-size: x-large;
         font-weight: 500;
         margin-right: 8px;
-        margin-bottom: 25px;
+        margin-bottom: 5px;
     }
 
-    input {
+    input, select {
         padding: 5px;
     }
 

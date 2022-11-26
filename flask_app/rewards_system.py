@@ -20,7 +20,7 @@ def rewards():
     product_data = cursor.fetchall()
 
     # Get orders data
-    cursor.execute('SELECT product_name, quantity, created_at, status FROM orders NATURAL JOIN products WHERE company_id = %s ORDER BY created_at DESC;' % session['id'])
+    cursor.execute('SELECT product_name, quantity, created_at, address_line1, status FROM orders NATURAL JOIN products NATURAL JOIN addresses WHERE company_id = %s ORDER BY created_at DESC;' % session['id'])
     orders_data = cursor.fetchall()
 
     # Get addresses data
@@ -42,10 +42,11 @@ def create_order():
         # Get order details
         _quantity = request.form['quantity']
         _product = request.form['product']
+        _address = request.form['address']
 
         # Save order
         cursor = mysql.connection.cursor()
-        cursor.callproc('Orders_CreateOrder', (session['id'], _product, _quantity))
+        cursor.callproc('Orders_CreateOrder', (session['id'], _address, _product, _quantity))
         points = cursor.fetchone()
 
         # Open and close cursor to commit changes to DB

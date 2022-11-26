@@ -16,10 +16,19 @@
         <section class="order-modal">
           <h4 id="product-name" class="mt-0 mb-3">Product Name</h4>
           <form id="order-form" action="/create-order" method="POST">
-            <label for="quantity">Quantity: </label>
-            <input type="hidden" name="product" id="product">
-            <input type="number" name="quantity" id="quantity" value="1" min="1" required autofocus />
-            <br>
+            <div class="form-options">
+              <label for="quantity">Quantity: </label>
+              <input type="hidden" name="product" id="product">
+              <input type="number" name="quantity" id="quantity" value="1" min="1" required autofocus />
+              <br>
+              <label for="address">Choose an address: </label>
+              <select name="address" id="address" required>
+                {% for address in addresses %}
+                  <option value="{{ address[0] }}">{{ address[1] }}</option>
+                {% endfor %}
+              </select>
+              <br>
+            </div>
             <button type="submit" class="btn btn-dark">Order Now</button>
           </form>
         </section>
@@ -131,6 +140,7 @@
                   <th>Product</th>
                   <th>Quantity</th>
                   <th>Date</th>
+                  <th>Address</th>
                   <th>Status</th>
                 </tr>
               </thead>
@@ -145,8 +155,10 @@
                       <td>{{ orders[i][1] }}</td>
                       <!-- Date -->
                       <td>{{ orders[i][2] }}</td>
+                      <!-- Address -->
+                      <td>{{ orders[i][3] }}</td>
                       <!-- Status -->
-                      <td style="text-transform: capitalize;">{{ orders[i][3] }}</td>
+                      <td style="text-transform: capitalize;">{{ orders[i][4] }}</td>
                   </tr>
                 {% endfor %}
               </tbody>
