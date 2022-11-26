@@ -39,6 +39,63 @@
                   <img loading="lazy" src="{{ url_for('static', filename='img/logoMint.png') }}" alt="logo">
                 </picture>
             </a>
+
+            <nav class="navigation navbar navbar-expand-lg">
+
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+            
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                  <li class="nav-item active">
+                    <a class="nav-link" href="/">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="../about">About Us</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="../services">Services</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="../contact">Contact</a>
+                  </li>
+
+                  {% if session.loggedin and session.id == 1 %}
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Admin
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="../admin_users">Users</a>
+                      <a class="dropdown-item" href="#">Action2</a>
+                      <a class="dropdown-item" href="#">Action3</a>
+                    </div>
+                  </li>
+                  {% endif %}
+
+                  {% if session.loggedin and session.id != 1 %}
+                  <li class="nav-item">
+                    <a class="nav-link" href="../rewards">Rewards</a>
+                  </li>
+                  {% endif %}
+
+                  {% if not session.loggedin %}
+                  <li class="nav-item">
+                    <a class="nav-link" href="../login">Login</a>
+                  </li>
+                  {% endif %}
+
+                  {% if session.loggedin %}
+                  <li class="nav-item">
+                    <a class="nav-link" href="../logout">Logout</a>
+                  </li>
+                  {% endif %}
+
+                </ul>
+              </div>
+            </nav>
+            <!--
             <nav class="navigation">
               {% block navigation %}
 
@@ -47,17 +104,21 @@
                 <a href="../services">SERVICES</a>
                 <a href="../contact">CONTACT</a>
 
+                {% if session.id == 1 %}
+                <a href="../admin">ADMIN</a>
+                {% endif %}
+
                 {% if session.loggedin %}
-                  <a href="../rewards">REWARDS</a>
-                  <a href="../logout">LOGOUT</a>
+                <a href="../rewards">REWARDS</a>
+                <a href="../logout">LOGOUT</a>
                 {% endif %}
                 
                 {% if not session.loggedin %}
-                  <a href="../login">LOGIN</a>
+                <a href="../login">LOGIN</a>
                 {% endif %}
 
               {% endblock %}
-            </nav>
+            </nav>-->
           </div>
           <div>
             <h1 id="page-title">{% block title %}{% endblock %}</h1>

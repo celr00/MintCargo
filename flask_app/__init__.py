@@ -22,4 +22,4 @@ mysql = MySQL(app)
 app.secret_key = '485o2'
 
 # Routes made in other documents
-from flask_app import public_routes, rewards_system, login
+from flask_app import public_routes, rewards_system, login, admin
