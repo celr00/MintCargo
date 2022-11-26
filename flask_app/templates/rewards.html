@@ -14,12 +14,13 @@
       </div>
       <div class="modal-body">
         <section class="order-modal">
+          <h4 id="product-name" class="mt-0 mb-3">Product Name</h4>
           <form id="order-form" action="/create-order" method="POST">
             <label for="quantity">Quantity: </label>
             <input type="hidden" name="product" id="product">
-            <input type="number" name="quantity" min="1" required autofocus />
+            <input type="number" name="quantity" id="quantity" value="1" min="1" required autofocus />
             <br>
-            <button type="submit" class="btn btn-dark">Accept</button>
+            <button type="submit" class="btn btn-dark">Order Now</button>
           </form>
         </section>
       </div>
@@ -96,13 +97,13 @@
                       <!-- Claim -->
                       <td class="td-center">
                         {% if product[5][-1] == 1 and session.points >= product[4] %}
-                          <button type="button" onclick="showModal('order', '{{ product[0] }}')" class="btn btn-dark">Claim</button>
-                        {% elif session.points < product[4] %}
-                          <i class="bi-cash-coin warning"></i>
-                          <span>Not enough</span>
-                        {% else %}
+                          <button type="button" onclick="prepareOrder('{{ product[1] }}', '{{ product[0] }}', '{{ product[4] }}', '{{ session.points }}')" class="btn btn-dark">Claim</button>
+                        {% elif product[5][-1] == 0 %}
                           <i class="bi-x-lg danger"></i>
                           <span>Unavailable</span>
+                        {% else %}
+                          <i class="bi-cash-coin warning"></i>
+                          <span>Not enough</span>
                         {% endif %}
                       </td>
                   </tr>
@@ -200,12 +201,13 @@
 </main>
 
 <script>
-  function showModal(name, ID) {
+  function prepareOrder(product, id, cost, points) {
 
-    let input = document.getElementById('product');
-    input.value = ID;
+    document.getElementById('product-name').textContent = product;
+    document.getElementById('product').value = id;
+    document.getElementById('quantity').max = Math.floor(points / cost);
 
-    $("#" + String(name)).modal('show');
+    $("#order").modal('show');
   }
 </script>
 
