@@ -10,13 +10,16 @@ def logout():
     # Delete credentials from session
     session.pop('loggedin', None)
     session.pop('id', None)
-    session.pop('username', None)
+    session.pop('name', None)
+    session.pop('user', None)
+    session.pop('points', None)
     return redirect('/')
 
 @app.route('/pythonlogin', methods=['GET', 'POST'])
 def pythonlogin():
     msg = ''
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
+
         # Extract credentials
         _user = request.form['username']
         _pass = request.form['password']
@@ -29,11 +32,15 @@ def pythonlogin():
 
         # Account exists in DB
         if account:
+
+            # Set credentials
             session['loggedin'] = True
             session['id'] = account[0]
             session['name'] = account[1]
             session['user'] = account[2]
+
             return redirect('/')
+
         # Unknown credentials
         else:
             msg = 'Incorrect username or password'

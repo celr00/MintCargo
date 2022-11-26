@@ -27,21 +27,12 @@ CREATE TABLE points (
 CREATE TABLE orders (
   order_id INT PRIMARY KEY AUTO_INCREMENT,
   company_id INT NOT NULL,
-  address_id INT NOT NULL,
+  product_id INT NOT NULL,
+  quantity INT NOT NULL,
   created_at DATE NOT NULL,
   status VARCHAR(100) NOT NULL,
   CONSTRAINT orders_fk1 FOREIGN KEY (company_id) REFERENCES companies (company_id),
-  CONSTRAINT orders_fk2 FOREIGN KEY (address_id) REFERENCES addresses (address_id)
-);
-
-CREATE TABLE order_details (
-  order_id INT,
-  product_id INT,
-  quantity INT NOT NULL,
-  points_spent INT NOT NULL,
-  CONSTRAINT details_fk1 FOREIGN KEY (order_id) REFERENCES orders (order_id),
-  CONSTRAINT details_fk2 FOREIGN KEY (product_id) REFERENCES products (product_id),
-  PRIMARY KEY (order_id, product_id)
+  CONSTRAINT orders_fk2 FOREIGN KEY (product_id) REFERENCES products (product_id)
 );
 
 CREATE TABLE addresses (

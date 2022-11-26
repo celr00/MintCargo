@@ -10,25 +10,55 @@ def rewards():
 
     cursor = mysql.connection.cursor()
 
+    # Get company's points
+    cursor.execute('CALL Points_GetByCompany(%s);' % session['id'])
+    points = cursor.fetchone()
+    session['points'] = points[0]
+
     # Get product data
     cursor.execute('SELECT * FROM products')
     product_data = cursor.fetchall()
 
     # Get orders data
-    cursor.execute('SELECT created_at, address_line1, SUM(points_spent), status FROM orders NATURAL JOIN order_details NATURAL JOIN addresses WHERE orders.company_id = %s GROUP BY orders.order_id ORDER BY created_at DESC;' % session['id'])
+    cursor.execute('SELECT product_name, quantity, created_at, status FROM orders NATURAL JOIN products WHERE company_id = %s ORDER BY created_at DESC;' % session['id'])
     orders_data = cursor.fetchall()
 
     # Get addresses data
     cursor.execute('SELECT * FROM addresses WHERE company_id = %s;' % session['id'])
     addresses_data = cursor.fetchall()
 
-    # Get company's points
-    cursor.execute('CALL Points_GetByCompany(%s);' % session['id'])
-    points_data = cursor.fetchone()
-
     cursor.close()
 
-    return render_template('rewards.html', products=product_data, orders=orders_data, addresses=addresses_data, points=points_data[0])
+    return render_template('rewards.html', products=product_data, orders=orders_data, addresses=addresses_data)
+
+@app.route('/create-order', methods=['GET', 'POST'])
+def create_order():
+
+    # Confirm login
+    if not session.get('loggedin') or not session['loggedin']:
+        return redirect('/login')
+
+    if request.method == 'POST' and 'quantity' in request.form:
+        # Get order details
+        _quantity = request.form['quantity']
+        _product = request.form['product']
+
+        # Save order
+        cursor = mysql.connection.cursor()
+        cursor.callproc('Orders_CreateOrder', (session['id'], _product, _quantity))
+        points = cursor.fetchone()
+
+        # Open and close cursor to commit changes to DB
+        cursor.close()
+        cursor = mysql.connection.cursor()
+        mysql.connection.commit()
+
+        # Subtract points
+        session['points'] = points[0]
+
+        cursor.close()
+    
+    return redirect('/rewards')
 
 @app.route('/update-user', methods=['GET', 'POST'])
 def update_user():
