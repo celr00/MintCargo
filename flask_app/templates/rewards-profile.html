@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block title%}Rewards{% endblock %}
+{% block subtitle%}everything about our bonus system!{% endblock %}
+
+{% block content %}
+
+<section class="profile container">
+  <div class="row align-items-center">
+    <div class="col-md-6 col-12">
+      <form action="/update-user" method="POST" onsubmit="return confirm('Do you really want to update your credentials?')">
+        <h4>Username</h4>
+        <input type="text" name="username" value="{{ session.user }}" placeholder="example321" required />
+        <br>
+        <h4>Password</h4>
+        <input type="password" name="password" placeholder="********" required />
+        <br>
+        <button type="submit" class="btn btn-dark btn-lg">Update</button>
+      </form>
+    </div>
+    <div class="col-md-6 col-12">
+      <div class="divider">
+        <h4>Company Name</h4>
+        <p>{{ session.name }}</p>
+      </div>
+      <div class="divider">
+        <h4>Address(es)</h4>
+        {% if addresses|length > 0 %}
+          <ul>
+            {% for address in addresses %}
+              <li>{{ address[1] }}</li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p>There are no addresses for this company.</p>
+        {% endif %}
+      </div>
+      <div class="divider">
+        <h4>Points</h4>
+        <p>{{ session.points }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
