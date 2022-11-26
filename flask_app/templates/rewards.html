@@ -17,7 +17,7 @@
           <form id="order-form" action="/create-order" method="POST">
             <label for="quantity">Quantity: </label>
             <input type="hidden" name="product" id="product">
-            <input type="number" name="quantity" min="1" required autofocus />
+            <input type="number" name="quantity" id="quantity" min="1" required autofocus />
             <br>
             <button type="submit" class="btn btn-dark">Accept</button>
           </form>
@@ -96,7 +96,7 @@
                       <!-- Claim -->
                       <td class="td-center">
                         {% if product[5][-1] == 1 and session.points >= product[4] %}
-                          <button type="button" onclick="showModal('order', '{{ product[0] }}')" class="btn btn-dark">Claim</button>
+                          <button type="button" onclick="prepareOrder('{{ product[0] }}', '{{ product[4] }}', '{{ session.points }}')" class="btn btn-dark">Claim</button>
                         {% elif product[5][-1] == 0 %}
                           <i class="bi-x-lg danger"></i>
                           <span>Unavailable</span>
@@ -200,12 +200,16 @@
 </main>
 
 <script>
-  function showModal(name, ID) {
+  function prepareOrder(id, cost, points) {
 
-    let input = document.getElementById('product');
-    input.value = ID;
+    let inputProduct = document.getElementById('product');
+    inputProduct.value = id;
+    
+    let inputQuantity = document.getElementById('quantity');
+    inputQuantity.max = Math.floor(points / cost);
+    console.log(Math.floor(points / cost));
 
-    $("#" + String(name)).modal('show');
+    $("#order").modal('show');
   }
 </script>
 
