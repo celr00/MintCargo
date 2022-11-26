@@ -26,6 +26,35 @@ def rewards():
 
     return render_template('rewards.html', products=product_data, orders=orders_data, addresses=addresses_data)
 
+@app.route('/create-order', methods=['GET', 'POST'])
+def create_order():
+
+    # Confirm login
+    if not session.get('loggedin') or not session['loggedin']:
+        return redirect('/login')
+
+    if request.method == 'POST' and 'quantity' in request.form:
+        # Get order details
+        _quantity = request.form['quantity']
+        _product = request.form['product']
+
+        # Save order
+        cursor = mysql.connection.cursor()
+        cursor.callproc('Orders_CreateOrder', (session['id'], _product, _quantity))
+        points = cursor.fetchone()
+
+        # Open and close cursor to commit changes to DB
+        cursor.close()
+        cursor = mysql.connection.cursor()
+        mysql.connection.commit()
+
+        # Subtract points
+        session['points'] = points[0]
+
+        cursor.close()
+    
+    return redirect('/rewards')
+
 @app.route('/update-user', methods=['GET', 'POST'])
 def update_user():
 

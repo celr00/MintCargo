@@ -5,6 +5,28 @@
 
 {% block content %}
 
+<!-- Create Order Modal -->
+<div class="modal" tabindex="-1" id="order">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Claim Prize</h5>
+      </div>
+      <div class="modal-body">
+        <section class="order-modal">
+          <form id="order-form" action="/create-order" method="POST">
+            <label for="quantity">Quantity: </label>
+            <input type="hidden" name="product" id="product">
+            <input type="number" name="quantity" min="1" required autofocus />
+            <br>
+            <button type="submit" class="btn btn-dark">Accept</button>
+          </form>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+
 <main class="rewards container">
   <div class="row">
     <div class="nav flex-column nav-pills col-md-4 col-12" id="tab" role="tablist" aria-orientation="vertical">
@@ -74,7 +96,7 @@
                       <!-- Claim -->
                       <td class="td-center">
                         {% if product[5][-1] == 1 and session.points >= product[4] %}
-                          <button type="button" class="btn btn-dark">Claim</button>
+                          <button type="button" onclick="showModal('order', '{{ product[0] }}')" class="btn btn-dark">Claim</button>
                         {% elif session.points < product[4] %}
                           <i class="bi-cash-coin warning"></i>
                           <span>Not enough</span>
@@ -176,5 +198,15 @@
     </div>
   </div>
 </main>
+
+<script>
+  function showModal(name, ID) {
+
+    let input = document.getElementById('product');
+    input.value = ID;
+
+    $("#" + String(name)).modal('show');
+  }
+</script>
 
 {% endblock %}

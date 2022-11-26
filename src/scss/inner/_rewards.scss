@@ -105,3 +105,24 @@
         margin-bottom: 20px;
     }
 }
+
+// Orders modal
+.order-modal {
+
+    padding: 25px;
+    text-align: center;
+
+    label {
+        font-size: x-large;
+        margin-right: 8px;
+        margin-bottom: 25px;
+    }
+
+    input {
+        padding: 5px;
+    }
+
+    button {
+        width: 80%;
+    }
+}
