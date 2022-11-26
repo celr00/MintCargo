@@ -14,12 +14,13 @@
       </div>
       <div class="modal-body">
         <section class="order-modal">
+          <h4 id="product-name" class="mt-0 mb-3">Product Name</h4>
           <form id="order-form" action="/create-order" method="POST">
             <label for="quantity">Quantity: </label>
             <input type="hidden" name="product" id="product">
-            <input type="number" name="quantity" id="quantity" min="1" required autofocus />
+            <input type="number" name="quantity" id="quantity" value="1" min="1" required autofocus />
             <br>
-            <button type="submit" class="btn btn-dark">Accept</button>
+            <button type="submit" class="btn btn-dark">Order Now</button>
           </form>
         </section>
       </div>
@@ -96,7 +97,7 @@
                       <!-- Claim -->
                       <td class="td-center">
                         {% if product[5][-1] == 1 and session.points >= product[4] %}
-                          <button type="button" onclick="prepareOrder('{{ product[0] }}', '{{ product[4] }}', '{{ session.points }}')" class="btn btn-dark">Claim</button>
+                          <button type="button" onclick="prepareOrder('{{ product[1] }}', '{{ product[0] }}', '{{ product[4] }}', '{{ session.points }}')" class="btn btn-dark">Claim</button>
                         {% elif product[5][-1] == 0 %}
                           <i class="bi-x-lg danger"></i>
                           <span>Unavailable</span>
@@ -200,14 +201,11 @@
 </main>
 
 <script>
-  function prepareOrder(id, cost, points) {
+  function prepareOrder(product, id, cost, points) {
 
-    let inputProduct = document.getElementById('product');
-    inputProduct.value = id;
-    
-    let inputQuantity = document.getElementById('quantity');
-    inputQuantity.value = 1;
-    inputQuantity.max = Math.floor(points / cost);
+    document.getElementById('product-name').textContent = product;
+    document.getElementById('product').value = id;
+    document.getElementById('quantity').max = Math.floor(points / cost);
 
     $("#order").modal('show');
   }
