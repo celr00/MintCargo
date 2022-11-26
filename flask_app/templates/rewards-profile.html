@@ -5,17 +5,35 @@
 
 {% block content %}
 
+<!-- Confirm Modal -->
+<div class="modal" tabindex="-1" id="confirm">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Update Credentials</h5>
+      </div>
+      <div class="modal-body">
+        <p>Do you really want to update your <b>username</b> and/or <b>password</b>?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="submit" form="update-user" type="button" class="btn btn-dark">Accept</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <section class="profile container">
   <div class="row align-items-center">
     <div class="col-md-6 col-12">
-      <form action="/update-user" method="POST" onsubmit="return confirm('Do you really want to update your credentials?')">
+      <form id="update-user" action="/update-user" method="POST">
         <h4>Username</h4>
         <input type="text" name="username" value="{{ session.user }}" placeholder="example321" required />
         <br>
         <h4>Password</h4>
         <input type="password" name="password" placeholder="********" required />
         <br>
-        <button type="submit" class="btn btn-dark btn-lg">Update</button>
+        <button type="button" onclick="prepareUpdate()" class="btn btn-dark btn-lg">Update</button>
       </form>
     </div>
     <div class="col-md-6 col-12">
@@ -39,8 +57,18 @@
         <h4>Points</h4>
         <p>{{ session.points }}</p>
       </div>
+      <div class="divider">
+        <h4>Total orders</h4>
+        <p>{{ orders }}</p>
+      </div>
     </div>
   </div>
 </section>
+
+<script>
+  function prepareUpdate() {
+    $('#confirm').modal('show');
+  }
+</script>
 
 {% endblock %}

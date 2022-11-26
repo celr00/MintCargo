@@ -77,7 +77,7 @@ def rewards_profile():
 
     cursor.close()
 
-    return render_template('rewards-profile.html', orders=orders_data, addresses=addresses_data)
+    return render_template('rewards-profile.html', orders=len(orders_data), addresses=addresses_data)
 
 @app.route('/create-order', methods=['GET', 'POST'])
 def create_order():
