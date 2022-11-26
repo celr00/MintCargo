@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block title%}Users{% endblock %}
+
+{% block content %}
+
+<section class="orders container">
+    {% if companies|length > 0 %}
+      <div class="orders">
+        <p><b>Total number of orders: </b>{{ orders|length }}</p>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-dark table-striped table-hover">
+          <thead class="table">
+            <tr>
+              <th>#</th>
+              <th>Product</th>
+              <th>Quantity</th>
+              <th>Date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in range(orders|length) %}
+              <tr>
+                  <!-- # -->
+                  <td>{{ i+1 }}</td>
+                  <!-- Product -->
+                  <td>{{ orders[i][0] }}</td>
+                  <!-- Quantity -->
+                  <td>{{ orders[i][1] }}</td>
+                  <!-- Date -->
+                  <td>{{ orders[i][2] }}</td>
+                  <!-- Status -->
+                  <td style="text-transform: capitalize;">{{ orders[i][3] }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <h3>You have no orders yet</h3>
+      <p class="text-center">Provided you have enough points, you can claim and order a prize of your choice by clicking the "catalog" menu right above this message</p>
+    {% endif %}
+  </section>
+
+{% endblock %}
