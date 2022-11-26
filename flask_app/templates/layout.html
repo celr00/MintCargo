@@ -62,34 +62,42 @@
                   </li>
 
                   {% if session.loggedin and session.id == 1 %}
-                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Admin
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <a class="dropdown-item" href="../admin_users">Users</a>
-                      <a class="dropdown-item" href="#">Action2</a>
-                      <a class="dropdown-item" href="#">Action3</a>
-                    </div>
-                  </li>
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Admin
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="../admin_users">Users</a>
+                        <a class="dropdown-item" href="#">Action2</a>
+                        <a class="dropdown-item" href="#">Action3</a>
+                      </div>
+                    </li>
                   {% endif %}
 
                   {% if session.loggedin and session.id != 1 %}
-                  <li class="nav-item">
-                    <a class="nav-link" href="../rewards">Rewards</a>
-                  </li>
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Rewards
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="../rewards/info">Info</a>
+                        <a class="dropdown-item" href="../rewards/catalog">Catalog</a>
+                        <a class="dropdown-item" href="../rewards/orders">Orders</a>
+                        <a class="dropdown-item" href="../rewards/profile">Profile</a>
+                      </div>
+                    </li>
                   {% endif %}
 
                   {% if not session.loggedin %}
-                  <li class="nav-item">
-                    <a class="nav-link" href="../login">Login</a>
-                  </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="../login">Login</a>
+                    </li>
                   {% endif %}
 
                   {% if session.loggedin %}
-                  <li class="nav-item">
-                    <a class="nav-link" href="../logout">Logout</a>
-                  </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="../logout">Logout</a>
+                    </li>
                   {% endif %}
 
                 </ul>
