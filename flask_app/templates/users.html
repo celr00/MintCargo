@@ -63,32 +63,36 @@
             <th>Username</th>
             <th>Password</th>
             <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
           {% for i in range(users|length) %}
             <tr>
-                <!-- # -->
-                <td>{{ users[i][0]}}</td>
-                <!-- Product -->
-                <td>{{ users[i][1] }}</td>
-                <!-- Quantity -->
-                <td>{{ users[i][2] }}</td>
-                <!-- Date -->
-                <td>{{ users[i][3] }}</td>
-                <!-- Edit -->
-                <td>
-                  <button class="btn btn-light"><i class="bi bi-pencil-fill" onclick="updateUser('{{ users[i][0] }}', '{{ users[i][1] }}', '{{ users[i][2] }}', '{{ users[i][3] }}')"></i></button>
-                </td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-  {% else %}
-    <h3>There are no active users</h3>
-  {% endif %}
-</section>
+                  <td>{{ users[i][0]}}</td>
+                  <!-- Product -->
+                  <td>{{ users[i][1] }}</td>
+                  <!-- Quantity -->
+                  <td>{{ users[i][2] }}</td>
+                  <!-- Date -->
+                  <td>{{ users[i][3] }}</td>
+                  <!-- Addresses -->
+                  <td>
+                    <button class="btn btn-light"><a href="{{url_for('getAddresses', company_id=users[i][0])}}"><i class="bi bi-mailbox"></i></a></button>
+                  </td>
+                  <!-- Edit -->
+                  <td>
+                    <button class="btn btn-light"><i class="bi bi-pencil-fill" onclick="updateUser('{{ users[i][0] }}', '{{ users[i][1] }}', '{{ users[i][2] }}', '{{ users[i][3] }}')"></i></button>
+                  </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <h3>There are no active users</h3>
+    {% endif %}
+  </section>
 
 <script>
   function createUser() {
@@ -103,18 +107,19 @@
     $("#customer").modal('show');
   }
 
-  function updateUser(_id, _name, _user, _pass) {
-    document.querySelector('#user-form').action = "/update-customer";
-    document.querySelector('#modal-name').textContent = "Update Customer";
-    document.querySelector('#company-name').value = _name;
-    document.querySelector('#username').value = _user;
-    document.querySelector('#password').value = _pass;
-    document.querySelector('#password-conf').value = _pass;
-    document.querySelector('#id').value = _id;
-    document.querySelector('#sub-button').textContent = "Update";
-    $('#difference').hide();
-    $("#customer").modal('show');
-  }
-</script>
+    function updateUser(_id, _name, _user, _pass){
+      document.querySelector('#user-form').action = "/update-customer";
+      document.querySelector('#modal-name').textContent = "Update Customer";
+      document.querySelector('#company-name').value = _name;
+      document.querySelector('#username').value = _user;
+      document.querySelector('#password').value = _pass;
+      document.querySelector('#password-conf').value = _pass;
+      document.querySelector('#id').value = _id;
+      document.querySelector('#sub-button').textContent = "Update";
+      $('#difference').hide();
+      $("#customer").modal('show');
+    }
+
+  </script>
 
 {% endblock %}
