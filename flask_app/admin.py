@@ -84,7 +84,7 @@ def updateCustomer():
         mysql.connection.commit()
         cursor.close()
         return redirect('/admin_users')
-        
+
 @app.route('/admin/invoices')
 @app.route('/admin/invoices/<msg>')
 def admin_invoices(msg=None):
@@ -162,3 +162,76 @@ def update_invoice():
         cursor.close()
 
         return redirect('/admin/invoices')
+
+@app.route('/admin/products')
+@app.route('/admin/products/<msg>')
+def admin_products(msg=None):
+
+    # Confirm login
+    if not session['loggedin'] or session['id'] != 1:
+        return redirect('/login')
+
+    # Get products
+    cursor = mysql.connection.cursor()
+    cursor.execute('SELECT * FROM products;')
+    product_data = cursor.fetchall()
+
+    cursor.close()
+
+    if msg:
+        return render_template('products.html', products=product_data, msg=msg)
+
+    return render_template('products.html', products=product_data)
+
+@app.route('/create-product', methods=['GET', 'POST'])
+def create_product():
+
+    # Confirm login
+    if not session['loggedin'] or session['id'] != 1:
+        return redirect('/login') 
+
+    if request.method == 'POST':
+        print(request.form)
+        # Get product details
+        _name = request.form['name']
+        _desc = request.form['description']
+        _route = request.form['route']
+        _price = request.form['price']
+        _active = 0
+        if 'active' in request.form:
+            _active = 1
+
+        # Create product
+        cursor = mysql.connection.cursor()
+        cursor.execute('INSERT INTO products (product_name, product_description, image_route, product_unit_price, active) VALUES (%s, %s, %s, %s, %s);', (_name, _desc, _route, _price, _active))
+        mysql.connection.commit()
+
+        cursor.close()
+
+        return redirect('/admin/products')
+
+@app.route('/update-product', methods=['GET', 'POST'])
+def update_product():
+    # Confirm login
+    if not session['loggedin'] or session['id'] != 1:
+        return redirect('/login')
+
+    if request.method == 'POST':
+        # Get invoice details
+        _product = request.form['product']
+        _name = request.form['name']
+        _desc = request.form['description']
+        _route = request.form['route']
+        _price = request.form['price']
+        _active = 0
+        if 'active' in request.form:
+            _active = 1
+
+        # Update product
+        cursor = mysql.connection.cursor()
+        cursor.execute('UPDATE products SET product_name = %s, product_description = %s, image_route = %s, product_unit_price = %s, active = %s WHERE product_id = %s;', (_name, _desc, _route, _price, _active, _product))
+        mysql.connection.commit()
+
+        cursor.close()
+
+        return redirect('/admin/products')
