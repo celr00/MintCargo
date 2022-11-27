@@ -9,7 +9,7 @@ def users(msg=None):
 
     cursor = mysql.connection.cursor()
 
-    cursor.execute('SELECT company_name, username, password FROM companies')
+    cursor.execute('SELECT * FROM companies')
     users = cursor.fetchall()
 
     cursor.close()
@@ -61,7 +61,7 @@ def updateCustomer():
         _cName = request.form['company-name']
         _username = request.form['username']
         _pass = request.form['password']
-        _id = int(request.form['id'])+1
+        _id = int(request.form['id'])
 
         cursor = mysql.connection.cursor()
 
