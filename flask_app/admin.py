@@ -195,26 +195,37 @@ def updateAddress():
         _state = request.form['state']
         _country = request.form['country']
         _zip = request.form['zip']
+        c_id = request.form['c_id']
 
         cursor = mysql.connection.cursor()
-        cursor.execute('UPDATE addresses SET address_line1 = %s, address_line2 = %s, city = %s, state = %s, country = %s, zip_code = %s WHERE company_id = %s', (_ad1, _ad2, _city, _state, _country, _zip, _id,))
+        cursor.execute('UPDATE addresses SET address_line1 = %s, address_line2 = %s, city = %s, state = %s, country = %s, zip_code = %s WHERE address_id = %s', (_ad1, _ad2, _city, _state, _country, _zip, _id,))
         mysql.connection.commit()
         cursor.close()
-        return redirect(url_for('getAddresses', company_id=_id))
+        return redirect(url_for('getAddresses', company_id=c_id))
 
-@app.route('/delete-address', methods=['GET', 'POST'])
-def deleteAddress():
+@app.route('/create-address', methods=['GET', 'POST'])
+def createAddress():
     # Confirm login
     if not session['loggedin'] or session['id'] != 1:
         return redirect('/login')
-    
+
     if request.method == 'POST':
-        _id = request.form['address-id2']
+        _ad1 = request.form['address1c']
+        _ad2 = request.form['address2c']
+        _city = request.form['cityc']
+        _state = request.form['statec']
+        _country = request.form['countryc']
+        _zip = request.form['zipc']
+        _company_id = request.form['company_id']
 
         cursor = mysql.connection.cursor()
-        cursor.execute('DELETE FROM addresses WHERE address_id = %s', (_id,))
+
+        if _ad2:
+            cursor.execute('INSERT INTO addresses (address_line1, address_line2, city, state, country, zip_code, company_id) VALUES (%s, %s, %s, %s, %s, %s, %s)', (_ad1, _ad2, _city, _state, _country, _zip, _company_id,))
+        else:
+            cursor.execute('INSERT INTO addresses (address_line1, city, state, country, zip_code, company_id) VALUES (%s, %s, %s, %s, %s, %s)', (_ad1, _city, _state, _country, _zip, _company_id,))
+
         mysql.connection.commit()
         cursor.close()
-        return redirect(url_for('getAddresses', company_id=_id))
-
+        return redirect(url_for('getAddresses', company_id=_company_id))
         
