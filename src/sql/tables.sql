@@ -20,7 +20,7 @@ CREATE TABLE points (
   valid_from DATE NOT NULL,
   valid_until DATE NOT NULL,
   awarded_points INT NOT NULL,
-  spent_points INT NOT NULL,
+  spent_points INT NOT NULL DEFAULT 0,
   CONSTRAINT customer_fk FOREIGN KEY (company_id) REFERENCES companies (company_id)
 );
 
