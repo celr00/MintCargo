@@ -178,7 +178,7 @@ def getAddresses(company_id):
 
         cursor.close()
 
-        return render_template('addresses.html', addresses=addresses)
+        return render_template('addresses.html', addresses=addresses, company_id=company_id)
     return render_template('addresses.html')
 
 @app.route('/update-address', methods=['GET', 'POST'])
