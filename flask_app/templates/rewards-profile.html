@@ -1,0 +1,97 @@
+{% extends "layout.html" %}
+
+{% block title%}Rewards{% endblock %}
+{% block subtitle%}company information{% endblock %}
+
+{% block content %}
+
+<!-- Confirm Modal -->
+<div class="modal" tabindex="-1" id="update">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Update Credentials</h5>
+      </div>
+      <div class="modal-body">
+        <p>Do you really want to update your <b>username</b> and/or <b>password</b>?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="submit" form="update-user" type="button" class="btn btn-dark">Accept</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="profile container">
+  <div class="row align-items-center">
+    <div class="col-md-6 col-12">
+      <form id="update-user" action="/update-user" method="POST">
+        <h4>Username</h4>
+        <input id="user" onkeypress="checkInputs()" type="text" name="username" value="{{ session.user }}" placeholder="example321" required />
+        <br>
+        <h4>Current Password</h4>
+        <input id="current" onkeypress="checkInputs()" type="password" name="current" placeholder="********" required />
+        <br>
+        <h4>New Password</h4>
+        <input id="new" onkeypress="checkInputs()" type="password" name="new" placeholder="********" required />
+        <br>
+        <h4>Confirm Password</h4>
+        <input id="confirm" onkeypress="checkInputs()" type="password" name="confirm" placeholder="********" required />
+        <br>
+        <button id="send" type="button" onclick="prepareUpdate()" class="btn btn-dark btn-lg" disabled>Update</button>
+      </form>
+      <div class="error">
+        <h5><i id="msg">{{ msg }}</i></h5>
+      </div>
+    </div>
+    <div class="col-md-6 col-12">
+      <div class="divider">
+        <h4>Company Name</h4>
+        <p>{{ session.name }}</p>
+      </div>
+      <div class="divider">
+        <h4>Address(es)</h4>
+        {% if addresses|length > 0 %}
+          <ul>
+            {% for address in addresses %}
+              <li>{{ address[1] }}</li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p>There are no addresses for this company.</p>
+        {% endif %}
+      </div>
+      <div class="divider">
+        <h4>Points</h4>
+        <p>{{ session.points }}</p>
+      </div>
+      <div class="divider">
+        <h4>Total orders</h4>
+        <p>{{ orders }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+
+  // Validate form
+  function checkInputs() {
+
+    let _user = document.getElementById('user').value;
+    let _current = document.getElementById('current').value;
+    let _new = document.getElementById('new').value;
+    let _confirm = document.getElementById('confirm').value;
+    let button = document.getElementById('send');
+
+    if (_user && _current && _new && _confirm)
+      button.disabled = false;
+  }
+
+  function prepareUpdate() {
+    $('#update').modal('show');
+  }
+</script>
+
+{% endblock %}

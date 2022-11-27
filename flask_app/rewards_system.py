@@ -1,8 +1,17 @@
 from flask_app import app, mysql
 from flask import render_template, redirect, session, request
 
-@app.route('/rewards')
-def rewards():
+@app.route('/rewards/info')
+def rewards_info():
+
+    # Confirm login
+    if not session.get('loggedin') or not session['loggedin']:
+        return redirect('/login')
+
+    return render_template('rewards-info.html')
+
+@app.route('/rewards/catalog')
+def rewards_catalog():
 
     # Confirm login
     if not session.get('loggedin') or not session['loggedin']:
@@ -19,6 +28,45 @@ def rewards():
     cursor.execute('SELECT * FROM products')
     product_data = cursor.fetchall()
 
+    # Get addresses data
+    cursor.execute('SELECT * FROM addresses WHERE company_id = %s;' % session['id'])
+    addresses_data = cursor.fetchall()
+
+    cursor.close()
+
+    return render_template('rewards-catalog.html', products=product_data, addresses=addresses_data)
+
+@app.route('/rewards/orders')
+def rewards_orders():
+
+    # Confirm login
+    if not session.get('loggedin') or not session['loggedin']:
+        return redirect('/login')
+
+    cursor = mysql.connection.cursor()
+
+    # Get orders data
+    cursor.execute('SELECT product_name, quantity, created_at, address_line1, status FROM orders NATURAL JOIN products NATURAL JOIN addresses WHERE company_id = %s ORDER BY created_at DESC;' % session['id'])
+    orders_data = cursor.fetchall()
+
+    cursor.close()
+
+    return render_template('rewards-orders.html', orders=orders_data)
+
+@app.route('/rewards/profile')
+def rewards_profile():
+
+    # Confirm login
+    if not session.get('loggedin') or not session['loggedin']:
+        return redirect('/login')
+
+    cursor = mysql.connection.cursor()
+
+    # Get company's points
+    cursor.execute('CALL Points_GetByCompany(%s);' % session['id'])
+    points = cursor.fetchone()
+    session['points'] = points[0]
+
     # Get orders data
     cursor.execute('SELECT product_name, quantity, created_at, address_line1, status FROM orders NATURAL JOIN products NATURAL JOIN addresses WHERE company_id = %s ORDER BY created_at DESC;' % session['id'])
     orders_data = cursor.fetchall()
@@ -29,7 +77,7 @@ def rewards():
 
     cursor.close()
 
-    return render_template('rewards.html', products=product_data, orders=orders_data, addresses=addresses_data)
+    return render_template('rewards-profile.html', orders=len(orders_data), addresses=addresses_data)
 
 @app.route('/create-order', methods=['GET', 'POST'])
 def create_order():
@@ -59,7 +107,7 @@ def create_order():
 
         cursor.close()
     
-    return redirect('/rewards')
+    return redirect('/rewards/info')
 
 @app.route('/update-user', methods=['GET', 'POST'])
 def update_user():
@@ -68,17 +116,28 @@ def update_user():
     if not session.get('loggedin') or not session['loggedin']:
         return redirect('/login')
 
-    if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
+    if request.method == 'POST' and 'username' in request.form and 'current' in request.form and 'new' in request.form and 'confirm' in request.form:
         # Extract credentials
         _user = request.form['username']
-        _pass = request.form['password']
+        _old = request.form['current']
+        _new = request.form['new']
+        _confirm = request.form['confirm']
+
+        # Validate
+        cursor = mysql.connection.cursor()
+        cursor.execute('SELECT password FROM companies WHERE company_id = %s;' % session['id'])
+        password = cursor.fetchone()[0]
+        print(password)
+        if _old != password:
+            return render_template('rewards-profile.html', msg='Wrong password')
+        elif _new != _confirm:
+            return render_template('rewards-profile.html', msg='Passwords do not match')
 
         # Update credentials
-        cursor = mysql.connection.cursor()
-        cursor.execute('UPDATE companies SET username = %s, password = %s WHERE company_id = %s;', (_user, _pass, session['id']))
+        cursor.execute('UPDATE companies SET username = %s, password = %s WHERE company_id = %s;', (_user, _new, session['id']))
         mysql.connection.commit()
         session['user'] = _user
         
         cursor.close()
 
-    return redirect('/rewards')
+    return redirect('/rewards/profile')
