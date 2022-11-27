@@ -163,6 +163,25 @@ def update_invoice():
 
         return redirect('/admin/invoices')
 
+@app.route('/delete-invoice', methods=['GET', 'POST'])
+def delete_invoice():
+    # Confirm login
+    if not session['loggedin'] or session['id'] != 1:
+        return redirect('/login')
+
+    if request.method == 'POST':
+        # Get invoice id
+        _invoice = request.form['invoice']
+
+        # Delete invoice
+        cursor = mysql.connection.cursor()
+        cursor.execute('DELETE FROM points WHERE %s = %s;', ('invoice_id', str(_invoice)))
+        mysql.connection.commit()
+
+        cursor.close()
+
+        return redirect('/admin/invoices')
+
 @app.route('/admin/products')
 @app.route('/admin/products/<msg>')
 def admin_products(msg=None):
