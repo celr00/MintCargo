@@ -86,6 +86,32 @@
   </div>
 </div>
 
+<!-- Delete Invoice Modal -->
+<div class="modal" tabindex="-1" id="delete">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          Delete Invoice
+        </h5>
+      </div>
+      <div class="modal-body">
+        <section class="create-modal">
+          <div class="delete">
+            <form action="/delete-invoice" method="POST">
+              <div class="form-options">
+                <h4>Are you sure you want to delete invoice '<span id="invoice-output"></span>'?</h4>
+                <input id="delete-id" type="hidden" name="invoice" required />
+              </div>
+              <button type="submit" class="btn btn-dark">Delete</button>
+            </form>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% if msg %}
   <script>
     $("#invoice").modal('show');
@@ -102,7 +128,6 @@
       <table class="table table-dark table-striped table-hover">
         <thead class="table">
           <tr>
-            <th>#</th>
             <th>ID</th>
             <th>Company</th>
             <th>From</th>
@@ -111,13 +136,12 @@
             <th>Spent</th>
             <th>Remaining</th>
             <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
           {% for i in range(invoices|length) %}
             <tr>
-                <!-- # -->
-                <td>{{ i+1 }}</td>
                 <!-- ID -->
                 <td>{{ invoices[i][0] }}</td>
                 <!-- Company -->
@@ -135,6 +159,10 @@
                 <!-- Edit -->
                 <td>
                   <button class="btn btn-light"><i class="bi bi-pencil-fill" onclick="updateInvoice('{{ invoices[i][0] }}', '{{ invoices[i][6] }}', '{{ invoices[i][2] }}', '{{ invoices[i][3] }}', '{{ invoices[i][4] }}', '{{ invoices[i][5] }}')"></i></button>
+                </td>
+                <!-- Delete -->
+                <td>
+                  <button class="btn btn-light"><i class="bi bi-trash" onclick="deleteInvoice('{{ invoices[i][0] }}')"></i></button>
                 </td>
             </tr>
           {% endfor %}
@@ -164,6 +192,12 @@
     document.querySelector('#spent-points').value = _spent;
     setMaxSpent();
     $("#edit").modal('show');
+  }
+
+  function deleteInvoice(_id) {
+    document.querySelector('#invoice-output').textContent = _id;
+    document.querySelector('#delete-id').value = _id;
+    $("#delete").modal('show');
   }
 </script>
 

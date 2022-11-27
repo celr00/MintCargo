@@ -1,0 +1,135 @@
+{% extends "layout.html" %}
+
+{% block title%}Orders{% endblock %}
+
+{% block content %}
+
+<!-- Edit Order Modal -->
+<div class="modal" tabindex="-1" id="edit">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal-name">
+          Update Order
+        </h5>
+      </div>
+      <div class="modal-body">
+        <section class="create-modal">
+          <form id="order-form" action="/update-order" method="POST">
+            <div class="form-options">
+              <input id="order-id" type="hidden" name="order" required />
+              <label for="status">Status: </label>
+              <select name="status" id="status" required>
+                <option value="processed">Processed</option>
+                <option value="shipped">Shipped</option>
+                <option value="delivered">Delivered</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+            </div>
+            <button id="sub-button" type="submit" class="btn btn-dark">Update</button>
+          </form>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Order Modal -->
+<div class="modal" tabindex="-1" id="delete">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          Delete Order
+        </h5>
+      </div>
+      <div class="modal-body">
+        <section class="create-modal">
+          <div class="delete">
+            <form action="/delete-order" method="POST">
+              <div class="form-options">
+                <h4>Are you sure you want to delete order <span id="order-output"></span>?</h4>
+                <input id="delete-id" type="hidden" name="order" required />
+              </div>
+              <button type="submit" class="btn btn-dark">Delete</button>
+            </form>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="query-header container">
+  {% if orders|length > 0 %}
+    <div class="query-info">
+      <p><b>Total number of orders: </b>{{ orders|length }}</p>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-dark table-striped table-hover">
+        <thead class="table">
+          <tr>
+            <th>ID</th>
+            <th>Company</th>
+            <th>Address</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Total</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in range(orders|length) %}
+            <tr>
+              <!-- ID -->
+              <td>{{ orders[i][0] }}</td>
+              <!-- Company -->
+              <td>{{ orders[i][1] }}</td>
+              <!-- Address -->
+              <td>{{ orders[i][2] }}</td>
+              <!-- Product -->
+              <td>{{ orders[i][3] }}</td>
+              <!-- Quantity -->
+              <td>{{ orders[i][4] }}</td>
+              <!-- Total -->
+              <td>{{ orders[i][5] }}</td>
+              <!-- Date -->
+              <td>{{ orders[i][6] }}</td>
+              <!-- Status -->
+              <td>{{ orders[i][7] }}</td>
+              <!-- Edit -->
+              <td>
+                <button class="btn btn-light"><i class="bi bi-pencil-fill" onclick="updateOrder('{{ orders[i][0] }}', '{{ orders[i][7] }}')"></i></button>
+              </td>
+              <!-- Delete -->
+              <td>
+                <button class="btn btn-light"><i class="bi bi-trash" onclick="deleteOrder('{{ orders[i][0] }}')"></i></button>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <h3>No orders exist as this day!</h3>
+  {% endif %}
+</section>
+
+<script>
+  function updateOrder(_id, _status) {
+    document.querySelector('#order-id').value = _id;
+    document.querySelector('#status').value = _status;
+    $("#edit").modal('show');
+  }
+
+  function deleteOrder(_id) {
+    document.querySelector('#order-output').textContent = _id;
+    document.querySelector('#delete-id').value = _id;
+    $("#delete").modal('show');
+  }
+</script>
+
+{% endblock %}
