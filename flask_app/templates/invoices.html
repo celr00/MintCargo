@@ -1,0 +1,170 @@
+{% extends "layout.html" %}
+
+{% block title%}Invoices{% endblock %}
+
+{% block content %}
+
+<!-- Create Invoice Modal -->
+<div class="modal" tabindex="-1" id="invoice">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+        {% if msg %}
+          {{ msg }}
+        {% else %}
+          New Invoice
+        {% endif %}
+        </h5>
+      </div>
+      <div class="modal-body">
+        <section class="create-modal">
+          <form action="/create-invoice" method="POST">
+            <div class="form-options">
+              <label for="invoice">ID: </label>
+              <input type="text" name="invoice" placeholder="A-12345" required autofocus />
+              <br>
+              <label for="company">Company: </label>
+              <select type="text" name="company" required />
+                {% for company in companies %}
+                  <option value="{{ company[0] }}">{{ company[1] }}</option>
+                {% endfor %}
+              </select>
+              <br>
+              <label for="valid-until">Valid Until: </label>
+              <input type="date" name="valid-until" required />
+              <br>
+              <label for="awarded-points">Points: </label>
+              <input type="number" min="1" name="awarded-points" required />
+            </div>
+            <button type="submit" class="btn btn-dark">Create</button>
+          </form>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Invoice Modal -->
+<div class="modal" tabindex="-1" id="edit">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          Edit Invoice
+        </h5>
+      </div>
+      <div class="modal-body">
+        <section class="create-modal">
+          <form action="/update-invoice" method="POST">
+            <div class="form-options">
+              <input id="update-id" type="hidden" name="invoice" required />
+              <label for="company">Company: </label>
+              <select id="company" type="text" name="company" required />
+                {% for company in companies %}
+                  <option value="{{ company[0] }}">{{ company[1] }}</option>
+                {% endfor %}
+              </select>
+              <br>
+              <label for="valid-from">Valid From: </label>
+              <input id="valid-from" type="date" name="valid-from" required />
+              <br>
+              <label for="valid-until">Valid Until: </label>
+              <input id="valid-until" type="date" name="valid-until" required />
+              <br>
+              <label for="awarded-points">Awarded Points: </label>
+              <input id="awarded-points" onchange="setMaxSpent()" type="number" min="1" name="awarded-points" required />
+              <br>
+              <label for="spent-points">Spent Points: </label>
+              <input id="spent-points" type="number" min="1" name="spent-points" required />
+            </div>
+            <button type="submit" class="btn btn-dark">Update</button>
+          </form>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% if msg %}
+  <script>
+    $("#invoice").modal('show');
+  </script>
+{% endif %}
+
+<section class="query-header container">
+  {% if invoices|length > 0 %}
+    <div class="query-info">
+      <button class="btn btn-dark" onclick="createInvoice()">New Invoice</button>
+      <p><b>Total number of invoices: </b>{{ invoices|length }}</p>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-dark table-striped table-hover">
+        <thead class="table">
+          <tr>
+            <th>#</th>
+            <th>ID</th>
+            <th>Company</th>
+            <th>From</th>
+            <th>Until</th>
+            <th>Awarded</th>
+            <th>Spent</th>
+            <th>Remaining</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in range(invoices|length) %}
+            <tr>
+                <!-- # -->
+                <td>{{ i+1 }}</td>
+                <!-- ID -->
+                <td>{{ invoices[i][0] }}</td>
+                <!-- Company -->
+                <td>{{ invoices[i][1] }}</td>
+                <!-- From -->
+                <td>{{ invoices[i][2] }}</td>
+                <!-- Until -->
+                <td>{{ invoices[i][3] }}</td>
+                <!-- Awarded -->
+                <td>{{ invoices[i][4] }}</td>
+                <!-- Spent -->
+                <td>{{ invoices[i][5] }}</td>
+                <!-- Remaining -->
+                <td>{{ invoices[i][4] - invoices[i][5] }}</td>
+                <!-- Edit -->
+                <td>
+                  <button class="btn btn-light"><i class="bi bi-pencil-fill" onclick="updateInvoice('{{ invoices[i][0] }}', '{{ invoices[i][6] }}', '{{ invoices[i][2] }}', '{{ invoices[i][3] }}', '{{ invoices[i][4] }}', '{{ invoices[i][5] }}')"></i></button>
+                </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <h3>There are no invoices yet</h3>
+  {% endif %}
+</section>
+
+<script>
+  function createInvoice() {
+    $("#invoice").modal('show');
+  }
+
+  function setMaxSpent() {
+    document.querySelector('#spent-points').max = document.querySelector('#awarded-points').value;
+  }
+
+  function updateInvoice(_id, _company, _from, _until, _awarded, _spent) {
+    document.querySelector('#update-id').value = _id;
+    document.querySelector('#company').value = _company;
+    document.querySelector('#valid-from').value = _from;
+    document.querySelector('#valid-until').value = _until;
+    document.querySelector('#awarded-points').value = _awarded;
+    document.querySelector('#spent-points').value = _spent;
+    setMaxSpent();
+    $("#edit").modal('show');
+  }
+</script>
+
+{% endblock %}
