@@ -1,9 +1,9 @@
 from flask_app import app, mysql
 from flask import render_template, session, redirect, request, url_for
 
-@app.route('/admin_users')
-@app.route('/admin_users/<msg>')
-def users(msg=None):
+@app.route('/admin/users')
+@app.route('/admin/users/<msg>')
+def admin_users(msg=None):
     if not session['loggedin'] or session['id'] != 1:
         return redirect('/login')
 
@@ -20,7 +20,7 @@ def users(msg=None):
     return render_template('users.html', users=users)
 
 @app.route('/create-user', methods=['GET', 'POST'])
-def addUser():
+def create_user():
     #Confirm login
     if not session['loggedin'] or session['id'] != 1:
         return redirect('/login') 
@@ -33,7 +33,7 @@ def addUser():
         _passC = request.form['password-conf']
 
         if _pass != _passC:
-            return redirect(url_for('users', msg="Passwords don't match"))
+            return redirect(url_for('admin_users', msg='Passwords don\'t match'))
 
         cursor = mysql.connection.cursor()
         cursor.execute('SELECT * FROM companies WHERE username = %s', (_username,))
@@ -41,17 +41,17 @@ def addUser():
 
         if not unique:
             cursor.close()
-            return redirect(url_for('users', msg="Username already exists"))
+            return redirect(url_for('admin_users', msg='Username already exists'))
 
         print(_cName, _username, _pass)
         cursor.execute('INSERT INTO companies (company_name, username, password) VALUES (%s, %s, %s)', (_cName, _username, _pass,))
 
         mysql.connection.commit()
         cursor.close()
-        return redirect('/admin_users')
+        return redirect('/admin/users')
 
 @app.route('/update-customer', methods=['GET', 'POST'])
-def updateCustomer():
+def update_customer():
     #Confirm login
     if not session['loggedin'] or session['id'] != 1:
         return redirect('/login')
@@ -77,13 +77,13 @@ def updateCustomer():
 
             if not unique:
                 cursor.close()
-                return redirect(url_for('users', msg="Username already exists"+str(_id), operation='update'))
+                return redirect(url_for('admin_users', msg='Username already exists'+str(_id), operation='update'))
 
         cursor.execute('UPDATE companies SET company_name = %s, username = %s, password = %s WHERE company_id = %s', (_cName,_username, _pass, _id,))
 
         mysql.connection.commit()
         cursor.close()
-        return redirect('/admin_users')
+        return redirect('/admin/users')
 
 @app.route('/admin/invoices')
 @app.route('/admin/invoices/<msg>')
