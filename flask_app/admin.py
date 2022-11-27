@@ -1,21 +1,23 @@
 from flask_app import app, mysql
-from flask import render_template, session, redirect, request
+from flask import render_template, session, redirect, request, url_for
 
-def getUsers():
+@app.route('/admin_users')
+@app.route('/admin_users/<msg>')
+def users(msg=None):
+    if not session['loggedin'] or session['id'] != 1:
+        return redirect('/login')
+
     cursor = mysql.connection.cursor()
 
     cursor.execute('SELECT company_name, username, password FROM companies')
     users = cursor.fetchall()
 
     cursor.close()
-    return users
 
-@app.route('/admin_users')
-def users():
-    if not session['loggedin'] or session['id'] != 1:
-        return redirect('/login')
+    if msg:
+        return render_template('users.html', users=users, msg=msg)
 
-    return render_template('users.html', users=getUsers())
+    return render_template('users.html', users=users)
 
 @app.route('/create-user', methods=['GET', 'POST'])
 def addUser():
@@ -31,7 +33,7 @@ def addUser():
         _passC = request.form['password-conf']
 
         if _pass != _passC:
-            return render_template('users.html', users=getUsers(), msg="Passwords do not match")
+            return redirect(url_for('users', msg="Passwords don't match"))
 
         cursor = mysql.connection.cursor()
         cursor.execute('SELECT * FROM companies WHERE username = %s', (_username,))
@@ -39,7 +41,7 @@ def addUser():
 
         if not unique:
             cursor.close()
-            return render_template('users.html', users=getUsers(), msg="Username already exists")
+            return redirect(url_for('users', msg="Username already exists"))
 
         print(_cName, _username, _pass)
         cursor.execute('INSERT INTO companies (company_name, username, password) VALUES (%s, %s, %s)', (_cName, _username, _pass,))
