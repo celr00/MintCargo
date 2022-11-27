@@ -9,15 +9,14 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">
-        {% if msg != None %}
-        {{ msg }}
-        {% endif %}
+        <h5 class="modal-title" id="modal-name">
+          {% if msg != None %}
+            {{ msg }}
+          {% endif %}
         </h5>
       </div>
       <div class="modal-body">
-        <section class="user-modal">
-          <h4 id="modal-name" class="mt-0 mb-3"></h4>
+        <section class="create-modal">
           <form id="user-form" action="/create-user" method="POST">
             <div class="form-options">
               <label for="company-name">Company Name: </label>
@@ -50,72 +49,72 @@
 {% endif %}
 
 <section class="query-header container">
-    {% if users|length > 0 %}
-      <div class="query-info">
-        <button class="btn, btn-dark" onclick="createUser()">New User</button>
-        <p><b>Total number of users: </b>{{ users|length }}</p>
-      </div>
-      <div class="table-responsive">
-        <table class="table table-dark table-striped table-hover">
-          <thead class="table">
+  {% if users|length > 0 %}
+    <div class="query-info">
+      <button class="btn btn-dark" onclick="createUser()">New User</button>
+      <p><b>Total number of users: </b>{{ users|length }}</p>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-dark table-striped table-hover">
+        <thead class="table">
+          <tr>
+            <th>#</th>
+            <th>Company</th>
+            <th>Username</th>
+            <th>Password</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in range(users|length) %}
             <tr>
-              <th>#</th>
-              <th>Company</th>
-              <th>Username</th>
-              <th>Password</th>
-              <th></th>
+                <!-- # -->
+                <td>{{ users[i][0]}}</td>
+                <!-- Product -->
+                <td>{{ users[i][1] }}</td>
+                <!-- Quantity -->
+                <td>{{ users[i][2] }}</td>
+                <!-- Date -->
+                <td>{{ users[i][3] }}</td>
+                <!-- Edit -->
+                <td>
+                  <button class="btn btn-light"><i class="bi bi-pencil-fill" onclick="updateUser('{{ users[i][0] }}', '{{ users[i][1] }}', '{{ users[i][2] }}', '{{ users[i][3] }}')"></i></button>
+                </td>
             </tr>
-          </thead>
-          <tbody>
-            {% for i in range(users|length) %}
-              <tr>
-                  <!-- # -->
-                  <td>{{ users[i][0]}}</td>
-                  <!-- Product -->
-                  <td>{{ users[i][1] }}</td>
-                  <!-- Quantity -->
-                  <td>{{ users[i][2] }}</td>
-                  <!-- Date -->
-                  <td>{{ users[i][3] }}</td>
-                  <!-- Edit -->
-                  <td>
-                    <button><i class="bi bi-pencil-fill" onclick="updateUser('{{ users[i][0] }}', '{{ users[i][1] }}', '{{ users[i][2] }}', '{{ users[i][3] }}')"></i></button>
-                  </td>
-              </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </div>
-    {% else %}
-      <h3>There are no active users</h3>
-    {% endif %}
-  </section>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <h3>There are no active users</h3>
+  {% endif %}
+</section>
 
-  <script>
-    function createUser(){
-      document.querySelector('#user-form').action = "/create-user";
-      document.querySelector('#modal-name').textContent = "New Customer";
-      document.querySelector('#company-name').value = "";
-      document.querySelector('#username').value = "";
-      document.querySelector('#password').value = "";
-      document.querySelector('#password-conf').value = "";
-      document.querySelector('#sub-button').textContent = "Create";
-      $('#difference').show();
-      $("#customer").modal('show');
-    }
+<script>
+  function createUser() {
+    document.querySelector('#user-form').action = "/create-user";
+    document.querySelector('#modal-name').textContent = "New Customer";
+    document.querySelector('#company-name').value = "";
+    document.querySelector('#username').value = "";
+    document.querySelector('#password').value = "";
+    document.querySelector('#password-conf').value = "";
+    document.querySelector('#sub-button').textContent = "Create";
+    $('#difference').show();
+    $("#customer").modal('show');
+  }
 
-    function updateUser(_id, _name, _user, _pass){
-      document.querySelector('#user-form').action = "/update-customer";
-      document.querySelector('#modal-name').textContent = "Update Customer";
-      document.querySelector('#company-name').value = _name;
-      document.querySelector('#username').value = _user;
-      document.querySelector('#password').value = _pass;
-      document.querySelector('#password-conf').value = _pass;
-      document.querySelector('#id').value = _id;
-      document.querySelector('#sub-button').textContent = "Update";
-      $('#difference').hide();
-      $("#customer").modal('show');
-    }
-  </script>
+  function updateUser(_id, _name, _user, _pass) {
+    document.querySelector('#user-form').action = "/update-customer";
+    document.querySelector('#modal-name').textContent = "Update Customer";
+    document.querySelector('#company-name').value = _name;
+    document.querySelector('#username').value = _user;
+    document.querySelector('#password').value = _pass;
+    document.querySelector('#password-conf').value = _pass;
+    document.querySelector('#id').value = _id;
+    document.querySelector('#sub-button').textContent = "Update";
+    $('#difference').hide();
+    $("#customer").modal('show');
+  }
+</script>
 
 {% endblock %}
