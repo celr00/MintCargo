@@ -38,24 +38,6 @@
   </div>
 </div>
 
-<!-- Delete Address Modal -->
-<div class="modal" tabindex="-1" id="delete">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-body">
-        <h4 id="modal-name" class="mt-0 mb-3"></h4>
-        <form id="delete-form" action="/delete-address" method="POST">
-          <div class="form-options">
-            <h4>This action is permanent</h4>
-            <input type="number" name="address-id2" id="address-id2" required hidden>
-          </div>
-          <button id="sub-button" type="submit" class="btn btn-dark">Delete</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
 <section class="query-header container">
     {% if addresses|length > 0 %}
       <div class="query-info">
@@ -69,7 +51,6 @@
               <th>#</th>
               <th>Address</th>
               <th></th>
-              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -82,10 +63,6 @@
                   <!-- Edit -->
                   <td>
                     <button><i class="bi bi-pencil-fill" onclick="editAddress('{{addresses[i][0]}}', '{{ addresses[i][1] }}','{{addresses[i][2] or ""}}', '{{ addresses[i][3] }}', '{{ addresses[i][4] }}', '{{ addresses[i][5] }}', '{{ addresses[i][6] }}')"></i></button>
-                  </td>
-                  <!-- Delete -->
-                  <td>
-                    <button><i class="bi bi-trash" onclick="deleteAddress('{{addresses[i][0]}}')"></i></button>
                   </td>
               </tr>
             {% endfor %}
@@ -109,10 +86,6 @@
       $("#edit").modal('show');
     }
 
-    function deleteAddress(_id){
-      console.log(_id);
-      document.querySelector('#address-id2').value = _id;
-      $('#delete').modal('show');
     }
   </script>
 
