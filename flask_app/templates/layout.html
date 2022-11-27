@@ -103,30 +103,6 @@
                 </ul>
               </div>
             </nav>
-            <!--
-            <nav class="navigation">
-              {% block navigation %}
-
-                <a href="/">HOME</a>
-                <a href="../about">ABOUT</a>
-                <a href="../services">SERVICES</a>
-                <a href="../contact">CONTACT</a>
-
-                {% if session.id == 1 %}
-                <a href="../admin">ADMIN</a>
-                {% endif %}
-
-                {% if session.loggedin %}
-                <a href="../rewards">REWARDS</a>
-                <a href="../logout">LOGOUT</a>
-                {% endif %}
-                
-                {% if not session.loggedin %}
-                <a href="../login">LOGIN</a>
-                {% endif %}
-
-              {% endblock %}
-            </nav>-->
           </div>
           <div>
             <h1 id="page-title">{% block title %}{% endblock %}</h1>
