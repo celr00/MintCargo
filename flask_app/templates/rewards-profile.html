@@ -6,7 +6,7 @@
 {% block content %}
 
 <!-- Confirm Modal -->
-<div class="modal" tabindex="-1" id="confirm">
+<div class="modal" tabindex="-1" id="update">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -28,13 +28,22 @@
     <div class="col-md-6 col-12">
       <form id="update-user" action="/update-user" method="POST">
         <h4>Username</h4>
-        <input type="text" name="username" value="{{ session.user }}" placeholder="example321" required />
+        <input id="user" onkeypress="checkInputs()" type="text" name="username" value="{{ session.user }}" placeholder="example321" required />
         <br>
-        <h4>Password</h4>
-        <input type="password" name="password" placeholder="********" required />
+        <h4>Current Password</h4>
+        <input id="current" onkeypress="checkInputs()" type="password" name="current" placeholder="********" required />
         <br>
-        <button type="button" onclick="prepareUpdate()" class="btn btn-dark btn-lg">Update</button>
+        <h4>New Password</h4>
+        <input id="new" onkeypress="checkInputs()" type="password" name="new" placeholder="********" required />
+        <br>
+        <h4>Confirm Password</h4>
+        <input id="confirm" onkeypress="checkInputs()" type="password" name="confirm" placeholder="********" required />
+        <br>
+        <button id="send" type="button" onclick="prepareUpdate()" class="btn btn-dark btn-lg" disabled>Update</button>
       </form>
+      <div class="error">
+        <h5><i id="msg">{{ msg }}</i></h5>
+      </div>
     </div>
     <div class="col-md-6 col-12">
       <div class="divider">
@@ -66,8 +75,22 @@
 </section>
 
 <script>
+
+  // Validate form
+  function checkInputs() {
+
+    let _user = document.getElementById('user').value;
+    let _current = document.getElementById('current').value;
+    let _new = document.getElementById('new').value;
+    let _confirm = document.getElementById('confirm').value;
+    let button = document.getElementById('send');
+
+    if (_user && _current && _new && _confirm)
+      button.disabled = false;
+  }
+
   function prepareUpdate() {
-    $('#confirm').modal('show');
+    $('#update').modal('show');
   }
 </script>
 

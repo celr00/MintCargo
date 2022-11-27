@@ -116,14 +116,25 @@ def update_user():
     if not session.get('loggedin') or not session['loggedin']:
         return redirect('/login')
 
-    if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
+    if request.method == 'POST' and 'username' in request.form and 'current' in request.form and 'new' in request.form and 'confirm' in request.form:
         # Extract credentials
         _user = request.form['username']
-        _pass = request.form['password']
+        _old = request.form['current']
+        _new = request.form['new']
+        _confirm = request.form['confirm']
+
+        # Validate
+        cursor = mysql.connection.cursor()
+        cursor.execute('SELECT password FROM companies WHERE company_id = %s;' % session['id'])
+        password = cursor.fetchone()[0]
+        print(password)
+        if _old != password:
+            return render_template('rewards-profile.html', msg='Wrong password')
+        elif _new != _confirm:
+            return render_template('rewards-profile.html', msg='Passwords do not match')
 
         # Update credentials
-        cursor = mysql.connection.cursor()
-        cursor.execute('UPDATE companies SET username = %s, password = %s WHERE company_id = %s;', (_user, _pass, session['id']))
+        cursor.execute('UPDATE companies SET username = %s, password = %s WHERE company_id = %s;', (_user, _new, session['id']))
         mysql.connection.commit()
         session['user'] = _user
         
