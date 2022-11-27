@@ -17,8 +17,8 @@
       </div>
       <div class="modal-body">
         <section class="user-modal">
-          <h4 id="product-name" class="mt-0 mb-3">New User</h4>
-          <form id="cUser-form" action="/create-user" method="POST">
+          <h4 id="modal-name" class="mt-0 mb-3"></h4>
+          <form id="user-form" action="/create-user" method="POST">
             <div class="form-options">
               <label for="company-name">Company Name: </label>
               <input type="text" name="company-name" id="company-name" required autofocus />
@@ -29,10 +29,13 @@
               <label for="password">Password: </label>
               <input type="text" name="password" id="password" required autofocus />
               <br>
-              <label for="password-conf">Confirm Password: </label>
-              <input type="text" name="password-conf" id="password-conf" required autofocus />
+              <div id="difference">
+                <label for="password-conf">Confirm Password: </label>
+                <input type="text" name="password-conf" id="password-conf" required autofocus />
+              </div>
+              <input type="number" id="id" name="id" hidden>
             </div>
-            <button type="submit" class="btn btn-dark">Create</button>
+            <button id="sub-button" type="submit" class="btn btn-dark">Create</button>
           </form>
         </section>
       </div>
@@ -42,7 +45,7 @@
 
 {% if msg %}
 <script>
-  $("#customer").modal('show');
+  alert('{{msg}}');
 </script>
 {% endif %}
 
@@ -60,6 +63,7 @@
               <th>Company</th>
               <th>Username</th>
               <th>Password</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -73,6 +77,10 @@
                   <td>{{ users[i][1] }}</td>
                   <!-- Date -->
                   <td>{{ users[i][2] }}</td>
+                  <!-- Edit -->
+                  <td>
+                    <button><i class="bi bi-pencil-fill" onclick="updateUser('{{i}}', '{{ users[i][0] }}', '{{ users[i][1] }}', '{{ users[i][2] }}')"></i></button>
+                  </td>
               </tr>
             {% endfor %}
           </tbody>
@@ -85,6 +93,27 @@
 
   <script>
     function createUser(){
+      document.querySelector('#user-form').action = "/create-user";
+      document.querySelector('#modal-name').textContent = "New Customer";
+      document.querySelector('#company-name').value = "";
+      document.querySelector('#username').value = "";
+      document.querySelector('#password').value = "";
+      document.querySelector('#password-conf').value = "";
+      document.querySelector('#sub-button').textContent = "Create";
+      $('#difference').show();
+      $("#customer").modal('show');
+    }
+
+    function updateUser(_id, _name, _user, _pass){
+      document.querySelector('#user-form').action = "/update-customer";
+      document.querySelector('#modal-name').textContent = "Update Customer";
+      document.querySelector('#company-name').value = _name;
+      document.querySelector('#username').value = _user;
+      document.querySelector('#password').value = _pass;
+      document.querySelector('#password-conf').value = _pass;
+      document.querySelector('#id').value = _id;
+      document.querySelector('#sub-button').textContent = "Update";
+      $('#difference').hide();
       $("#customer").modal('show');
     }
   </script>
