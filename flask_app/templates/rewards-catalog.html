@@ -1,0 +1,103 @@
+{% extends "layout.html" %}
+
+{% block title%}Rewards{% endblock %}
+{% block subtitle%}take a look at our products: {% endblock %}
+
+{% block content %}
+
+<!-- Create Order Modal -->
+<div class="modal" tabindex="-1" id="order">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Claim Prize</h5>
+      </div>
+      <div class="modal-body">
+        <section class="order-modal">
+          <h4 id="product-name" class="mt-0 mb-3">Product Name</h4>
+          <form id="order-form" action="/create-order" method="POST">
+            <div class="form-options">
+              <label for="quantity">Quantity: </label>
+              <input type="hidden" name="product" id="product">
+              <input type="number" name="quantity" id="quantity" value="1" min="1" required autofocus />
+              <br>
+              <label for="address">Choose an address: </label>
+              <select name="address" id="address" required>
+                {% for address in addresses %}
+                  <option value="{{ address[0] }}">{{ address[1] }}</option>
+                {% endfor %}
+              </select>
+              <br>
+            </div>
+            <button type="submit" class="btn btn-dark">Order Now</button>
+          </form>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="products container">
+  {% if products|length > 0 %}
+    <div class="points">
+      <p><b>{{ session.name }}</b> points: {{ session.points }}</p>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-striped table-hover">
+        <thead class="table-dark">
+          <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Description</th>
+            <th class="td-center">Cost</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for product in products %}
+            <tr>
+                <!-- img -->
+                <td class="td-center">
+                  <img src="{{ product[3] }}" alt="Product Image">
+                </td>
+                <!-- Name -->
+                <td>{{ product[1] }}</td>
+                <!-- Desc -->
+                <td>{{ product[2] }}</td>
+                <!-- Cost -->
+                <td class="td-center">{{ product[4] }} points</td>
+                <!-- Claim -->
+                <td class="td-center">
+                  {% if product[5][-1] == 1 and session.points >= product[4] %}
+                    <button type="button" onclick="prepareOrder('{{ product[1] }}', '{{ product[0] }}', '{{ product[4] }}', '{{ session.points }}')" class="btn btn-dark">Claim</button>
+                  {% elif product[5][-1] == 0 %}
+                    <i class="bi-x-lg danger"></i>
+                    <span>Unavailable</span>
+                  {% else %}
+                    <i class="bi-cash-coin warning"></i>
+                    <span>Not enough</span>
+                  {% endif %}
+                </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <h3>An error ocurred trying to retrieve our catalog...</h3>
+    <p class="text-center">Please, try again later</p>
+  {% endif %}
+</section>
+
+<script>
+  function prepareOrder(product, id, cost, points) {
+
+    document.getElementById('product-name').textContent = product;
+    document.getElementById('product').value = id;
+    document.getElementById('quantity').max = Math.floor(points / cost);
+
+    $("#order").modal('show');
+  }
+</script>
+
+{% endblock %}
