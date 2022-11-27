@@ -76,7 +76,7 @@
 <section class="query-header container">
     
       <div class="query-info">
-        <button class="btn, btn-dark" onclick="createAddress('{{company_id}}')">New Address</button>
+        <button class="btn btn-dark" onclick="createAddress('{{company_id}}')">New Address</button>
         <p><b>Total number of users: </b>{{ addresses|length }}</p>
       </div>
       <div class="table-responsive">
@@ -97,7 +97,7 @@
                   <td>{{ addresses[i][1] }} {{addresses[i][2] or ""}}, {{ addresses[i][3] }}, {{ addresses[i][4] }}, {{ addresses[i][5] }}, {{ addresses[i][6] }}</td>
                   <!-- Edit -->
                   <td>
-                    <button><i class="bi bi-pencil-fill" onclick="editAddress('{{addresses[i][0]}}', '{{ addresses[i][1] }}','{{addresses[i][2] or ""}}', '{{ addresses[i][3] }}', '{{ addresses[i][4] }}', '{{ addresses[i][5] }}', '{{ addresses[i][6] }}')"></i></button>
+                    <button class="btn btn-light"><i class="bi bi-pencil-fill" onclick="editAddress('{{addresses[i][0]}}', '{{ addresses[i][1] }}','{{addresses[i][2] or ""}}', '{{ addresses[i][3] }}', '{{ addresses[i][4] }}', '{{ addresses[i][5] }}', '{{ addresses[i][6] }}')"></i></button>
                   </td>
               </tr>
             {% endfor %}
