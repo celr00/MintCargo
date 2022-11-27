@@ -50,3 +50,38 @@ def addUser():
         cursor.close()
         return redirect('/admin_users')
         
+@app.route('/update-customer', methods=['GET', 'POST'])
+def updateCustomer():
+    #Confirm login
+    if not session['loggedin'] or session['id'] != 1:
+        return redirect('/login')
+
+    if request.method == 'POST':
+        #Get user details
+        _cName = request.form['company-name']
+        _username = request.form['username']
+        _pass = request.form['password']
+        _id = int(request.form['id'])+1
+
+        cursor = mysql.connection.cursor()
+
+        #Checking is new username is not unique
+        cursor.execute('SELECT * FROM companies WHERE company_id = %s', (_id,))
+
+        current_info = cursor.fetchone()
+
+        if _username != current_info[2]:
+            cursor.execute('SELECT * FROM companies WHERE username = %s', (_username,))
+
+            unique = len(cursor.fetchall()) == 0
+
+            if not unique:
+                cursor.close()
+                return redirect(url_for('users', msg="Username already exists"+str(_id), operation='update'))
+
+        cursor.execute('UPDATE companies SET company_name = %s, username = %s, password = %s WHERE company_id = %s', (_cName,_username, _pass, _id,))
+
+        mysql.connection.commit()
+        cursor.close()
+        return redirect('/admin_users')
+        
