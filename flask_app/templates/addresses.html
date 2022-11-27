@@ -4,6 +4,40 @@
 
 {% block content %}
 
+<!-- Create Address Modal -->
+<div class="modal" tabindex="-1" id="create">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <h4 id="modal-name" class="mt-0 mb-3"></h4>
+        <form id="create-form" action="/create-address" method="POST">
+          <div class="form-options">
+            <label for="address1c">Address Line 1: </label>
+            <input type="text" name="address1c" id="address1c" required autofocus />
+            <br>
+            <label for="address2c">Address Line 2: </label>
+            <input type="text" name="address2c" id="address2c" autofocus />
+            <br>
+            <label for="cityc">City: </label>
+            <input type="text" name="cityc" id="cityc" required autofocus />
+            <br>
+            <label for="statec">State: </label>
+            <input type="text" name="statec" id="statec" required autofocus />
+            <br>
+            <label for="countryc">Country: </label>
+            <input type="text" name="countryc" id="countryc" required autofocus />
+            <br>
+            <label for="zipc">Zip Code: </label>
+            <input type="text" name="zipc" id="zipc" required autofocus />
+            <input type="number" name="company_id" id="company_id" required>
+          </div>
+          <button id="sub-button" type="submit" class="btn btn-dark">Update</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Update Address Modal -->
 <div class="modal" tabindex="-1" id="edit">
   <div class="modal-dialog modal-dialog-centered">
