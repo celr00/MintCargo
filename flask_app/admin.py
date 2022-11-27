@@ -162,3 +162,59 @@ def update_invoice():
         cursor.close()
 
         return redirect('/admin/invoices')
+
+@app.route('/addresses/<company_id>')
+def getAddresses(company_id):
+    # Confirm login
+    if not session['loggedin'] or session['id'] != 1:
+        return redirect('/login')
+
+    if request.method == 'GET':
+        cursor = mysql.connection.cursor()
+
+        cursor.execute('SELECT * FROM addresses WHERE company_id = %s', (company_id,))
+
+        addresses = cursor.fetchall()
+
+        cursor.close()
+
+        return render_template('addresses.html', addresses=addresses)
+    return render_template('addresses.html')
+
+@app.route('/update-address', methods=['GET', 'POST'])
+def updateAddress():
+    # Confirm login
+    if not session['loggedin'] or session['id'] != 1:
+        return redirect('/login')
+
+    if request.method == 'POST':
+        _id = request.form['address-id']
+        _ad1 = request.form['address1']
+        _ad2 = request.form['address2']
+        _city = request.form['city']
+        _state = request.form['state']
+        _country = request.form['country']
+        _zip = request.form['zip']
+
+        cursor = mysql.connection.cursor()
+        cursor.execute('UPDATE addresses SET address_line1 = %s, address_line2 = %s, city = %s, state = %s, country = %s, zip_code = %s WHERE company_id = %s', (_ad1, _ad2, _city, _state, _country, _zip, _id,))
+        mysql.connection.commit()
+        cursor.close()
+        return redirect(url_for('getAddresses', company_id=_id))
+
+@app.route('/delete-address', methods=['GET', 'POST'])
+def deleteAddress():
+    # Confirm login
+    if not session['loggedin'] or session['id'] != 1:
+        return redirect('/login')
+    
+    if request.method == 'POST':
+        _id = request.form['address-id2']
+
+        cursor = mysql.connection.cursor()
+        cursor.execute('DELETE FROM addresses WHERE address_id = %s', (_id,))
+        mysql.connection.commit()
+        cursor.close()
+        return redirect(url_for('getAddresses', company_id=_id))
+
+        

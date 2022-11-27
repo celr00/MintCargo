@@ -63,6 +63,7 @@
               <th>Company</th>
               <th>Username</th>
               <th>Password</th>
+              <th>Addresses</th>
               <th></th>
             </tr>
           </thead>
@@ -77,6 +78,10 @@
                   <td>{{ users[i][2] }}</td>
                   <!-- Date -->
                   <td>{{ users[i][3] }}</td>
+                  <!-- Addresses -->
+                  <td>
+                    <button><a href="{{url_for('getAddresses', id=users[i][0])}}"><i class="bi bi-mailbox"></i></a></button>
+                  </td>
                   <!-- Edit -->
                   <td>
                     <button><i class="bi bi-pencil-fill" onclick="updateUser('{{ users[i][0] }}', '{{ users[i][1] }}', '{{ users[i][2] }}', '{{ users[i][3] }}')"></i></button>
@@ -116,6 +121,7 @@
       $('#difference').hide();
       $("#customer").modal('show');
     }
+
   </script>
 
 {% endblock %}
