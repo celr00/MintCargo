@@ -45,10 +45,51 @@
   </div>
 </div>
 
+<!-- Edit Invoice Modal -->
+<div class="modal" tabindex="-1" id="edit">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          Edit Invoice
+        </h5>
+      </div>
+      <div class="modal-body">
+        <section class="create-modal">
+          <form action="/update-invoice" method="POST">
+            <div class="form-options">
+              <input id="update-id" type="hidden" name="invoice" required />
+              <label for="company">Company: </label>
+              <select id="company" type="text" name="company" required />
+                {% for company in companies %}
+                  <option value="{{ company[0] }}">{{ company[1] }}</option>
+                {% endfor %}
+              </select>
+              <br>
+              <label for="valid-from">Valid From: </label>
+              <input id="valid-from" type="date" name="valid-from" required />
+              <br>
+              <label for="valid-until">Valid Until: </label>
+              <input id="valid-until" type="date" name="valid-until" required />
+              <br>
+              <label for="awarded-points">Awarded Points: </label>
+              <input id="awarded-points" onchange="setMaxSpent()" type="number" min="1" name="awarded-points" required />
+              <br>
+              <label for="spent-points">Spent Points: </label>
+              <input id="spent-points" type="number" min="1" name="spent-points" required />
+            </div>
+            <button type="submit" class="btn btn-dark">Update</button>
+          </form>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% if msg %}
-<script>
-  $("#invoice").modal('show');
-</script>
+  <script>
+    $("#invoice").modal('show');
+  </script>
 {% endif %}
 
 <section class="query-header container">
@@ -69,6 +110,7 @@
             <th>Awarded</th>
             <th>Spent</th>
             <th>Remaining</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -90,6 +132,10 @@
                 <td>{{ invoices[i][5] }}</td>
                 <!-- Remaining -->
                 <td>{{ invoices[i][4] - invoices[i][5] }}</td>
+                <!-- Edit -->
+                <td>
+                  <button class="btn btn-light"><i class="bi bi-pencil-fill" onclick="updateInvoice('{{ invoices[i][0] }}', '{{ invoices[i][6] }}', '{{ invoices[i][2] }}', '{{ invoices[i][3] }}', '{{ invoices[i][4] }}', '{{ invoices[i][5] }}')"></i></button>
+                </td>
             </tr>
           {% endfor %}
         </tbody>
@@ -103,6 +149,21 @@
 <script>
   function createInvoice() {
     $("#invoice").modal('show');
+  }
+
+  function setMaxSpent() {
+    document.querySelector('#spent-points').max = document.querySelector('#awarded-points').value;
+  }
+
+  function updateInvoice(_id, _company, _from, _until, _awarded, _spent) {
+    document.querySelector('#update-id').value = _id;
+    document.querySelector('#company').value = _company;
+    document.querySelector('#valid-from').value = _from;
+    document.querySelector('#valid-until').value = _until;
+    document.querySelector('#awarded-points').value = _awarded;
+    document.querySelector('#spent-points').value = _spent;
+    setMaxSpent();
+    $("#edit").modal('show');
   }
 </script>
 

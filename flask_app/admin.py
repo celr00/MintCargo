@@ -49,60 +49,7 @@ def addUser():
         mysql.connection.commit()
         cursor.close()
         return redirect('/admin_users')
-        
-@app.route('/admin/invoices')
-@app.route('/admin/invoices/<msg>')
-def admin_invoices(msg=None):
 
-    # Confirm login
-    if not session['loggedin'] or session['id'] != 1:
-        return redirect('/login')
-
-    # Get invoices
-    cursor = mysql.connection.cursor()
-    cursor.execute('SELECT invoice_id, company_name, valid_from, valid_until, awarded_points, spent_points FROM points NATURAL JOIN companies;')
-    invoices_data = cursor.fetchall()
-
-    # Get companies
-    cursor.execute('SELECT * FROM companies;')
-    companies_data = cursor.fetchall()
-
-    cursor.close()
-
-    if msg:
-        return render_template('invoices.html', invoices=invoices_data, companies=companies_data, msg=msg)
-
-    return render_template('invoices.html', invoices=invoices_data, companies=companies_data)
-
-@app.route('/create-invoice', methods=['GET', 'POST'])
-def create_invoice():
-
-    # Confirm login
-    if not session['loggedin'] or session['id'] != 1:
-        return redirect('/login') 
-
-    if request.method == 'POST':
-        # Get user details
-        _invoice = request.form['invoice']
-        _company = request.form['company']
-        _until = request.form['valid-until']
-        _points = request.form['awarded-points']
-
-        # Validate id
-        cursor = mysql.connection.cursor()
-        cursor.execute('SELECT * FROM points WHERE invoice_id = %s;', ('invoice_id', _invoice))
-        unique = len(cursor.fetchall()) == 0
-
-        if not unique:
-            cursor.close()
-            return redirect(url_for('admin_invoices', msg='ID already exists'))
-
-        # Create invoice
-        cursor.execute('INSERT INTO points (invoice_id, company_id, valid_from, valid_until, awarded_points) VALUES (%s, %s, CURDATE(), %s, %s);', (_invoice, _company, _until, _points))
-        mysql.connection.commit()
-        cursor.close()
-
-        return redirect('/admin/invoices')
 @app.route('/update-customer', methods=['GET', 'POST'])
 def updateCustomer():
     #Confirm login
@@ -138,3 +85,80 @@ def updateCustomer():
         cursor.close()
         return redirect('/admin_users')
         
+@app.route('/admin/invoices')
+@app.route('/admin/invoices/<msg>')
+def admin_invoices(msg=None):
+
+    # Confirm login
+    if not session['loggedin'] or session['id'] != 1:
+        return redirect('/login')
+
+    # Get invoices
+    cursor = mysql.connection.cursor()
+    cursor.execute('SELECT invoice_id, company_name, valid_from, valid_until, awarded_points, spent_points, points.company_id FROM points NATURAL JOIN companies;')
+    invoices_data = cursor.fetchall()
+
+    # Get companies
+    cursor.execute('SELECT * FROM companies;')
+    companies_data = cursor.fetchall()
+
+    cursor.close()
+
+    if msg:
+        return render_template('invoices.html', invoices=invoices_data, companies=companies_data, msg=msg)
+
+    return render_template('invoices.html', invoices=invoices_data, companies=companies_data)
+
+@app.route('/create-invoice', methods=['GET', 'POST'])
+def create_invoice():
+
+    # Confirm login
+    if not session['loggedin'] or session['id'] != 1:
+        return redirect('/login') 
+
+    if request.method == 'POST':
+        # Get invoice details
+        _invoice = request.form['invoice']
+        _company = request.form['company']
+        _until = request.form['valid-until']
+        _points = request.form['awarded-points']
+
+        # Validate id
+        cursor = mysql.connection.cursor()
+        cursor.execute('SELECT * FROM points WHERE invoice_id = %s;', ('invoice_id', _invoice))
+        unique = len(cursor.fetchall()) == 0
+
+        if not unique:
+            cursor.close()
+            return redirect(url_for('admin_invoices', msg='ID already exists'))
+
+        # Create invoice
+        cursor.execute('INSERT INTO points (invoice_id, company_id, valid_from, valid_until, awarded_points) VALUES (%s, %s, CURDATE(), %s, %s);', (_invoice, _company, _until, _points))
+        mysql.connection.commit()
+        cursor.close()
+
+        return redirect('/admin/invoices')
+
+@app.route('/update-invoice', methods=['GET', 'POST'])
+def update_invoice():
+    # Confirm login
+    if not session['loggedin'] or session['id'] != 1:
+        return redirect('/login')
+
+    if request.method == 'POST':
+        # Get invoice details
+        _invoice = request.form['invoice']
+        _company = request.form['company']
+        _from = request.form['valid-from']
+        _until = request.form['valid-until']
+        _awarded = int(request.form['awarded-points'])
+        _spent = int(request.form['spent-points'])
+
+        # Update invoice
+        cursor = mysql.connection.cursor()
+        cursor.execute('UPDATE points SET company_id = %s, valid_from = %s, valid_until = %s, awarded_points = %s, spent_points = %s WHERE invoice_id = %s', (_company, _from, _until, _awarded, _spent, _invoice))
+        mysql.connection.commit()
+
+        cursor.close()
+
+        return redirect('/admin/invoices')
