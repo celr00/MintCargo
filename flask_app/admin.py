@@ -163,6 +163,25 @@ def update_invoice():
 
         return redirect('/admin/invoices')
 
+@app.route('/delete-invoice', methods=['GET', 'POST'])
+def delete_invoice():
+    # Confirm login
+    if not session['loggedin'] or session['id'] != 1:
+        return redirect('/login')
+
+    if request.method == 'POST':
+        # Get invoice id
+        _invoice = request.form['invoice']
+
+        # Delete invoice
+        cursor = mysql.connection.cursor()
+        cursor.execute('DELETE FROM points WHERE %s = %s;', ('invoice_id', str(_invoice)))
+        mysql.connection.commit()
+
+        cursor.close()
+
+        return redirect('/admin/invoices')
+
 @app.route('/admin/products')
 @app.route('/admin/products/<msg>')
 def admin_products(msg=None):
@@ -235,3 +254,62 @@ def update_product():
         cursor.close()
 
         return redirect('/admin/products')
+
+@app.route('/admin/orders')
+@app.route('/admin/orders/<msg>')
+def admin_orders(msg=None):
+
+    # Confirm login
+    if not session['loggedin'] or session['id'] != 1:
+        return redirect('/login')
+
+    # Get orders
+    cursor = mysql.connection.cursor()
+    cursor.execute('SELECT order_id, company_name, address_line1, product_name, quantity, product_unit_price * quantity, created_at, status FROM orders NATURAL JOIN companies NATURAL JOIN addresses NATURAL JOIN products;')
+    order_data = cursor.fetchall()
+
+    cursor.close()
+
+    if msg:
+        return render_template('orders.html', orders=order_data, msg=msg)
+
+    return render_template('orders.html', orders=order_data)
+
+@app.route('/update-order', methods=['GET', 'POST'])
+def update_order():
+    # Confirm login
+    if not session['loggedin'] or session['id'] != 1:
+        return redirect('/login')
+
+    if request.method == 'POST':
+        # Get order details
+        _order = request.form['order']
+        _status = request.form['status']
+
+        # Update order
+        cursor = mysql.connection.cursor()
+        cursor.execute('UPDATE orders SET status = %s WHERE order_id = %s;', (_status, _order))
+        mysql.connection.commit()
+
+        cursor.close()
+
+        return redirect('/admin/orders')
+
+@app.route('/delete-order', methods=['GET', 'POST'])
+def delete_order():
+    # Confirm login
+    if not session['loggedin'] or session['id'] != 1:
+        return redirect('/login')
+
+    if request.method == 'POST':
+        # Get order id
+        _order = request.form['order']
+
+        # Delete order
+        cursor = mysql.connection.cursor()
+        cursor.execute('DELETE FROM orders WHERE order_id = %s;' % _order)
+        mysql.connection.commit()
+
+        cursor.close()
+
+        return redirect('/admin/orders')
