@@ -4,9 +4,10 @@ from flask import render_template, session, redirect, request, url_for
 @app.route('/admin/users')
 @app.route('/admin/users/<msg>')
 def admin_users(msg=None):
-    if not session['loggedin'] or session['id'] != 1:
-        return redirect('/login')
 
+    if 'loggedin' not in session or not session['loggedin'] or session['id'] != 1:
+        return redirect('/login')
+    
     cursor = mysql.connection.cursor()
 
     cursor.execute('SELECT * FROM companies')
@@ -22,7 +23,7 @@ def admin_users(msg=None):
 @app.route('/create-user', methods=['GET', 'POST'])
 def create_user():
     #Confirm login
-    if not session['loggedin'] or session['id'] != 1:
+    if 'loggedin' not in session or not session['loggedin'] or session['id'] != 1:
         return redirect('/login') 
 
     if request.method == 'POST':
@@ -53,7 +54,7 @@ def create_user():
 @app.route('/update-customer', methods=['GET', 'POST'])
 def update_customer():
     #Confirm login
-    if not session['loggedin'] or session['id'] != 1:
+    if 'loggedin' not in session or not session['loggedin'] or session['id'] != 1:
         return redirect('/login')
 
     if request.method == 'POST':
@@ -90,7 +91,7 @@ def update_customer():
 def admin_invoices(msg=None):
 
     # Confirm login
-    if not session['loggedin'] or session['id'] != 1:
+    if 'loggedin' not in session or not session['loggedin'] or session['id'] != 1:
         return redirect('/login')
 
     # Get invoices
@@ -113,7 +114,7 @@ def admin_invoices(msg=None):
 def create_invoice():
 
     # Confirm login
-    if not session['loggedin'] or session['id'] != 1:
+    if 'loggedin' not in session or not session['loggedin'] or session['id'] != 1:
         return redirect('/login') 
 
     if request.method == 'POST':
@@ -142,7 +143,7 @@ def create_invoice():
 @app.route('/update-invoice', methods=['GET', 'POST'])
 def update_invoice():
     # Confirm login
-    if not session['loggedin'] or session['id'] != 1:
+    if 'loggedin' not in session or not session['loggedin'] or session['id'] != 1:
         return redirect('/login')
 
     if request.method == 'POST':
@@ -166,7 +167,7 @@ def update_invoice():
 @app.route('/addresses/<company_id>')
 def getAddresses(company_id):
     # Confirm login
-    if not session['loggedin'] or session['id'] != 1:
+    if 'loggedin' not in session or not session['loggedin'] or session['id'] != 1:
         return redirect('/login')
 
     if request.method == 'GET':
@@ -184,7 +185,7 @@ def getAddresses(company_id):
 @app.route('/update-address', methods=['GET', 'POST'])
 def updateAddress():
     # Confirm login
-    if not session['loggedin'] or session['id'] != 1:
+    if 'loggedin' not in session or not session['loggedin'] or session['id'] != 1:
         return redirect('/login')
 
     if request.method == 'POST':
@@ -208,7 +209,7 @@ def updateAddress():
 def admin_products(msg=None):
 
     # Confirm login
-    if not session['loggedin'] or session['id'] != 1:
+    if 'loggedin' not in session or not session['loggedin'] or session['id'] != 1:
         return redirect('/login')
 
     # Get products
@@ -226,7 +227,7 @@ def admin_products(msg=None):
 @app.route('/delete-invoice', methods=['GET', 'POST'])
 def delete_invoice():
     # Confirm login
-    if not session['loggedin'] or session['id'] != 1:
+    if 'loggedin' not in session or not session['loggedin'] or session['id'] != 1:
         return redirect('/login')
 
     if request.method == 'POST':
@@ -246,7 +247,7 @@ def delete_invoice():
 def create_product():
 
     # Confirm login
-    if not session['loggedin'] or session['id'] != 1:
+    if 'loggedin' not in session or not session['loggedin'] or session['id'] != 1:
         return redirect('/login') 
 
     if request.method == 'POST':
@@ -272,7 +273,7 @@ def create_product():
 @app.route('/create-address', methods=['GET', 'POST'])
 def createAddress():
     # Confirm login
-    if not session['loggedin'] or session['id'] != 1:
+    if 'loggedin' not in session or not session['loggedin'] or session['id'] != 1:
         return redirect('/login')
 
     if request.method == 'POST':
@@ -298,7 +299,7 @@ def createAddress():
 @app.route('/update-product', methods=['GET', 'POST'])
 def update_product():
     # Confirm login
-    if not session['loggedin'] or session['id'] != 1:
+    if 'loggedin' not in session or not session['loggedin'] or session['id'] != 1:
         return redirect('/login')
 
     if request.method == 'POST':        
@@ -326,7 +327,7 @@ def update_product():
 def admin_orders(msg=None):
 
     # Confirm login
-    if not session['loggedin'] or session['id'] != 1:
+    if 'loggedin' not in session or not session['loggedin'] or session['id'] != 1:
         return redirect('/login')
 
     # Get orders
@@ -344,7 +345,7 @@ def admin_orders(msg=None):
 @app.route('/update-order', methods=['GET', 'POST'])
 def update_order():
     # Confirm login
-    if not session['loggedin'] or session['id'] != 1:
+    if 'loggedin' not in session or not session['loggedin'] or session['id'] != 1:
         return redirect('/login')
 
     if request.method == 'POST':
@@ -364,7 +365,7 @@ def update_order():
 @app.route('/delete-order', methods=['GET', 'POST'])
 def delete_order():
     # Confirm login
-    if not session['loggedin'] or session['id'] != 1:
+    if 'loggedin' not in session or not session['loggedin'] or session['id'] != 1:
         return redirect('/login')
 
     if request.method == 'POST':
