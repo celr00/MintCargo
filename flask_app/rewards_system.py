@@ -5,7 +5,7 @@ from flask import render_template, redirect, session, request
 def rewards_info():
 
     # Confirm login
-    if not session.get('loggedin') or not session['loggedin']:
+    if 'loggedin' not in session or not session.get('loggedin') or not session['loggedin']:
         return redirect('/login')
 
     return render_template('rewards-info.html')
@@ -14,7 +14,7 @@ def rewards_info():
 def rewards_catalog():
 
     # Confirm login
-    if not session.get('loggedin') or not session['loggedin']:
+    if 'loggedin' not in session or not session.get('loggedin') or not session['loggedin']:
         return redirect('/login')
 
     cursor = mysql.connection.cursor()
@@ -40,7 +40,7 @@ def rewards_catalog():
 def rewards_orders():
 
     # Confirm login
-    if not session.get('loggedin') or not session['loggedin']:
+    if 'loggedin' not in session or not session.get('loggedin') or not session['loggedin']:
         return redirect('/login')
 
     cursor = mysql.connection.cursor()
@@ -57,7 +57,7 @@ def rewards_orders():
 def rewards_profile():
 
     # Confirm login
-    if not session.get('loggedin') or not session['loggedin']:
+    if 'loggedin' not in session or not session.get('loggedin') or not session['loggedin']:
         return redirect('/login')
 
     cursor = mysql.connection.cursor()
@@ -83,7 +83,7 @@ def rewards_profile():
 def create_order():
 
     # Confirm login
-    if not session.get('loggedin') or not session['loggedin']:
+    if 'loggedin' not in session or not session.get('loggedin') or not session['loggedin']:
         return redirect('/login')
 
     if request.method == 'POST' and 'quantity' in request.form:
@@ -113,7 +113,7 @@ def create_order():
 def update_user():
 
     # Confirm login
-    if not session.get('loggedin') or not session['loggedin']:
+    if 'loggedin' not in session or not session.get('loggedin') or not session['loggedin']:
         return redirect('/login')
 
     if request.method == 'POST' and 'username' in request.form and 'current' in request.form and 'new' in request.form and 'confirm' in request.form:
