@@ -125,7 +125,7 @@ def create_invoice():
 
         # Validate id
         cursor = mysql.connection.cursor()
-        cursor.execute('SELECT * FROM points WHERE invoice_id = %s;', ('invoice_id', _invoice))
+        cursor.execute('SELECT * FROM points WHERE %s = %s;', ('invoice_id', _invoice))
         unique = len(cursor.fetchall()) == 0
 
         if not unique:
