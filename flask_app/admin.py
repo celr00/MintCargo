@@ -126,7 +126,7 @@ def create_invoice():
 
         # Validate id
         cursor = mysql.connection.cursor()
-        cursor.execute('SELECT * FROM points WHERE %s = %s;', ('invoice_id', _invoice))
+        cursor.execute('SELECT * FROM points WHERE invoice_id = \'%s\';' % _invoice)
         unique = len(cursor.fetchall()) == 0
 
         if not unique:
@@ -164,8 +164,27 @@ def update_invoice():
 
         return redirect('/admin/invoices')
 
+@app.route('/delete-invoice', methods=['GET', 'POST'])
+def delete_invoice():
+    # Confirm login
+    if 'loggedin' not in session or not session['loggedin'] or session['id'] != 1:
+        return redirect('/login')
+
+    if request.method == 'POST':
+        # Get invoice id
+        _invoice = request.form['invoice']
+
+        # Delete invoice
+        cursor = mysql.connection.cursor()
+        cursor.execute('DELETE FROM points WHERE invoice_id = \'%s\';' % _invoice)
+        mysql.connection.commit()
+
+        cursor.close()
+
+        return redirect('/admin/invoices')
+
 @app.route('/addresses/<company_id>')
-def getAddresses(company_id):
+def get_addresses(company_id):
     # Confirm login
     if 'loggedin' not in session or not session['loggedin'] or session['id'] != 1:
         return redirect('/login')
@@ -182,8 +201,34 @@ def getAddresses(company_id):
         return render_template('addresses.html', addresses=addresses, company_id=company_id)
     return render_template('addresses.html')
 
+@app.route('/create-address', methods=['GET', 'POST'])
+def create_address():
+    # Confirm login
+    if 'loggedin' not in session or not session['loggedin'] or session['id'] != 1:
+        return redirect('/login')
+
+    if request.method == 'POST':
+        _ad1 = request.form['address1c']
+        _ad2 = request.form['address2c']
+        _city = request.form['cityc']
+        _state = request.form['statec']
+        _country = request.form['countryc']
+        _zip = request.form['zipc']
+        _company_id = request.form['company_id']
+
+        cursor = mysql.connection.cursor()
+
+        if _ad2:
+            cursor.execute('INSERT INTO addresses (address_line1, address_line2, city, state, country, zip_code, company_id) VALUES (%s, %s, %s, %s, %s, %s, %s)', (_ad1, _ad2, _city, _state, _country, _zip, _company_id,))
+        else:
+            cursor.execute('INSERT INTO addresses (address_line1, city, state, country, zip_code, company_id) VALUES (%s, %s, %s, %s, %s, %s)', (_ad1, _city, _state, _country, _zip, _company_id,))
+
+        mysql.connection.commit()
+        cursor.close()
+        return redirect(url_for('getAddresses', company_id=_company_id))
+
 @app.route('/update-address', methods=['GET', 'POST'])
-def updateAddress():
+def update_address():
     # Confirm login
     if 'loggedin' not in session or not session['loggedin'] or session['id'] != 1:
         return redirect('/login')
@@ -202,7 +247,7 @@ def updateAddress():
         cursor.execute('UPDATE addresses SET address_line1 = %s, address_line2 = %s, city = %s, state = %s, country = %s, zip_code = %s WHERE address_id = %s', (_ad1, _ad2, _city, _state, _country, _zip, _id,))
         mysql.connection.commit()
         cursor.close()
-        return redirect(url_for('getAddresses', company_id=c_id))
+        return redirect(url_for('get_addresses', company_id=c_id))
 
 @app.route('/admin/products')
 @app.route('/admin/products/<msg>')
@@ -223,25 +268,6 @@ def admin_products(msg=None):
         return render_template('products.html', products=product_data, msg=msg)
 
     return render_template('products.html', products=product_data)
-
-@app.route('/delete-invoice', methods=['GET', 'POST'])
-def delete_invoice():
-    # Confirm login
-    if 'loggedin' not in session or not session['loggedin'] or session['id'] != 1:
-        return redirect('/login')
-
-    if request.method == 'POST':
-        # Get invoice id
-        _invoice = request.form['invoice']
-
-        # Delete invoice
-        cursor = mysql.connection.cursor()
-        cursor.execute('DELETE FROM points WHERE %s = %s;', ('invoice_id', str(_invoice)))
-        mysql.connection.commit()
-
-        cursor.close()
-
-        return redirect('/admin/invoices')
 
 @app.route('/create-product', methods=['GET', 'POST'])
 def create_product():
@@ -269,32 +295,6 @@ def create_product():
         cursor.close()
 
         return redirect('/admin/products')
-
-@app.route('/create-address', methods=['GET', 'POST'])
-def createAddress():
-    # Confirm login
-    if 'loggedin' not in session or not session['loggedin'] or session['id'] != 1:
-        return redirect('/login')
-
-    if request.method == 'POST':
-        _ad1 = request.form['address1c']
-        _ad2 = request.form['address2c']
-        _city = request.form['cityc']
-        _state = request.form['statec']
-        _country = request.form['countryc']
-        _zip = request.form['zipc']
-        _company_id = request.form['company_id']
-
-        cursor = mysql.connection.cursor()
-
-        if _ad2:
-            cursor.execute('INSERT INTO addresses (address_line1, address_line2, city, state, country, zip_code, company_id) VALUES (%s, %s, %s, %s, %s, %s, %s)', (_ad1, _ad2, _city, _state, _country, _zip, _company_id,))
-        else:
-            cursor.execute('INSERT INTO addresses (address_line1, city, state, country, zip_code, company_id) VALUES (%s, %s, %s, %s, %s, %s)', (_ad1, _city, _state, _country, _zip, _company_id,))
-
-        mysql.connection.commit()
-        cursor.close()
-        return redirect(url_for('getAddresses', company_id=_company_id))
 
 @app.route('/update-product', methods=['GET', 'POST'])
 def update_product():
@@ -380,4 +380,3 @@ def delete_order():
         cursor.close()
 
         return redirect('/admin/orders')
-        
