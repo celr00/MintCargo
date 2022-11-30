@@ -165,7 +165,7 @@ def update_invoice():
         return redirect('/admin/invoices')
 
 @app.route('/addresses/<company_id>')
-def getAddresses(company_id):
+def get_addresses(company_id):
     # Confirm login
     if 'loggedin' not in session or not session['loggedin'] or session['id'] != 1:
         return redirect('/login')
@@ -183,7 +183,7 @@ def getAddresses(company_id):
     return render_template('addresses.html')
 
 @app.route('/update-address', methods=['GET', 'POST'])
-def updateAddress():
+def update_address():
     # Confirm login
     if 'loggedin' not in session or not session['loggedin'] or session['id'] != 1:
         return redirect('/login')
@@ -202,7 +202,7 @@ def updateAddress():
         cursor.execute('UPDATE addresses SET address_line1 = %s, address_line2 = %s, city = %s, state = %s, country = %s, zip_code = %s WHERE address_id = %s', (_ad1, _ad2, _city, _state, _country, _zip, _id,))
         mysql.connection.commit()
         cursor.close()
-        return redirect(url_for('getAddresses', company_id=c_id))
+        return redirect(url_for('get_addresses', company_id=c_id))
 
 @app.route('/admin/products')
 @app.route('/admin/products/<msg>')
@@ -271,7 +271,7 @@ def create_product():
         return redirect('/admin/products')
 
 @app.route('/create-address', methods=['GET', 'POST'])
-def createAddress():
+def create_address():
     # Confirm login
     if 'loggedin' not in session or not session['loggedin'] or session['id'] != 1:
         return redirect('/login')
