@@ -236,7 +236,7 @@ def delete_invoice():
 
         # Delete invoice
         cursor = mysql.connection.cursor()
-        cursor.execute('DELETE FROM points WHERE %s = %s;', ('invoice_id', str(_invoice)))
+        cursor.execute('DELETE FROM points WHERE invoice_id = \'%s\';' % _invoice)
         mysql.connection.commit()
 
         cursor.close()
