@@ -12,3 +12,6 @@ git clone git@github.com:celr00/MintCargo.git
 
 2. NPM Install
 
+```bash
+npm install
+```
